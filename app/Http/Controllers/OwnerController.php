@@ -56,10 +56,10 @@ class OwnerController extends Controller
                 ->with('type', 'success');
         } catch(\Exception $e) {
             return redirect()
-                ->route('owners.createForm')
-                ->withInput()
-                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.')
-                ->with('type', 'error');
+                ->route('owners.index')
+                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error')
+                ->withInput();
         }
     }
 

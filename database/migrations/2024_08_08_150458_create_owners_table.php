@@ -24,8 +24,7 @@ return new class extends Migration
             $table->string('country', 150);
             $table->string('state', 150);
             $table->string('neighborhood', 150);
-            $table->unsignedInteger('postal_code');
-            $table->unsignedInteger('area_code');
+            $table->unsignedInteger('zip_code');
             $table->string('phone_number', 50);
             $table->date('birth_date');
             $table->timestamps();

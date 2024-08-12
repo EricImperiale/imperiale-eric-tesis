@@ -60,6 +60,24 @@ class Owner extends Model
     use HasFactory;
     use BaseFormattedData;
 
+    protected $fillable = [
+        'name',
+        'last_name',
+        'dni',
+        'cuit',
+        'email',
+        'address',
+        'address_number',
+        'city',
+        'country',
+        'state',
+        'neighborhood',
+        'zip_code',
+        'phone_number',
+        'birth_date',
+        'phone_prefix_fk_id',
+    ];
+
     public function phonePrefix(): BelongsTo
     {
         return $this->belongsTo(

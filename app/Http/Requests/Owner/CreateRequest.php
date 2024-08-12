@@ -81,6 +81,7 @@ class CreateRequest extends FormRequest
             'phone_number.required' => 'El número de teléfono es obligatorio.',
             'birth_date.required' => 'La fecha de nacimiento es obligatoria.',
             'birth_date.date' => 'La fecha de nacimiento debe ser una fecha válida.',
+            'birth_date.before_or_equal' => 'La fecha de nacimiento debe ser una fecha anterior a la actual.',
         ];
     }
 }

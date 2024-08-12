@@ -57,6 +57,7 @@
                         name="dni"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         x-model="dni"
+                        autocomplete="off"
                     >
 
                     <div x-show="dni.length <= maxLength">
@@ -84,6 +85,7 @@
                         name="cuit"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         x-model="cuit"
+                        autocomplete="off"
                     >
 
                     <div x-show="cuit.length <= maxLength">
@@ -224,9 +226,9 @@
                 </div>
 
                 <div>
-                    <label for="area_code" class="block text-sm font-medium text-gray-700">Código de Área</label>
+                    <label for="phone_prefix_fk_id" class="block text-sm font-medium text-gray-700">Código de Área</label>
                     <select
-                        id="area_code"
+                        id="phone_prefix_fk_id"
                         name="phone_prefix_fk_id"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >

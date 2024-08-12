@@ -44,15 +44,8 @@
             <p>Aún no hay propietarios cargados. <a href="">Creá uno</a></p>
         @endif
 
-        <div class="flex justify-between items-center mt-4">
-            <span class="text-sm text-gray-600">Mostrando 1-10 de 50 resultados</span>
-            <nav class="flex space-x-2">
-                <a href="#" class="px-4 py-2 text-sm text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100">Anterior</a>
-                <a href="#" class="px-4 py-2 text-sm text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100">1</a>
-                <a href="#" class="px-4 py-2 text-sm text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100">2</a>
-                <a href="#" class="px-4 py-2 text-sm text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100">3</a>
-                <a href="#" class="px-4 py-2 text-sm text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100">Siguiente</a>
-            </nav>
+        <div class="mt-4">
+           {{ $owners->links() }}
         </div>
     </div>
 </x-app-layout>
