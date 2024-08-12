@@ -43,7 +43,7 @@
                 </x-table>
             </div>
         @else
-            <p>Aún no hay propietarios cargados. <a href="">Creá uno</a></p>
+            <p>Aún no hay propietarios cargados. <a href="{{ route('owners.formCreate') }}">Creá uno</a></p>
         @endif
 
         <div class="mt-4">

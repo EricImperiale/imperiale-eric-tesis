@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('user_id');
             $table->string('full_name')->nullable();
             $table->boolean('has_permission')->default(false);
+            $table->boolean('is_employee')->default(false);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

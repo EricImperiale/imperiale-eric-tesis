@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Owner\CreateRequest;
+use App\Http\Requests\Owner\EditRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
 use App\Repositories\BaseEloquentRepository;
@@ -52,7 +53,7 @@ class OwnerController extends Controller
             return redirect()
                 ->route('owners.index')
                 ->withInput()
-                ->with('message', 'El Propietario <b>' . $owner->fullName . '</b> fue creado con éxito.')
+                ->with('message', 'El Propietario <b>' . e($owner->fullName) . '</b> fue creado con éxito.')
                 ->with('type', 'success');
         } catch(\Exception $e) {
             return redirect()
@@ -93,9 +94,25 @@ class OwnerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function processUpdate(EditRequest $request, string $id)
     {
-        //
+        $data = $request->except(['_token']);
+
+        try {
+            $owner = $this->repo->update($id, $data);
+
+            return redirect()
+                ->route('owners.index')
+                ->withInput()
+                ->with('message', 'El Propietario <b>' . e($owner->fullName) . '</b> fue editado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('owners.index')
+                ->with('message', 'Ocurrió un error al editar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error')
+                ->withInput();
+        }
     }
 
     /**
@@ -104,7 +121,8 @@ class OwnerController extends Controller
     public function delete(string $id)
     {
         return view('owners.delete-form', [
-            'owner' => $this->repo->findOrFailWithRelations($id, ['phonePrefix']),
+            'owner' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+            'phonePrefixes' => PhonePrefix::all(),
         ]);
     }
 }

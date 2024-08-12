@@ -20,12 +20,14 @@ class UserSeeder extends Seeder
                 'email' => 'ericimperiale@hotmail.com',
                 'password' => Hash::make('123'),
                 'has_permission' => true,
+                'is_employee' => true,
             ],
             [
                 'full_name' => 'Marcos Gonzales',
                 'email' => 'marcosgonzales@hotmail.com',
                 'password' => Hash::make('123'),
                 'has_permission' => false,
+                'is_employee' => false,
             ],
         ]);
     }

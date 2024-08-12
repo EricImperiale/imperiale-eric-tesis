@@ -36,6 +36,6 @@
         @endif
     @endif
 
-    <p class="text-base">{{ $message }}</p>
+    <p class="text-base">{!! $message !!}</p>
 </div>
 

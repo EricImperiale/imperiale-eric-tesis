@@ -6,6 +6,7 @@ use App\Traits\BaseFormattedData;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
  *
@@ -59,9 +60,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Owner extends Model
 {
+    use AuthorizesRequests;
     use BaseFormattedData;
-
-    protected $primaryKey = 'owner_id';
 
     protected $fillable = [
         'name',

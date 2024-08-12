@@ -37,7 +37,7 @@ class OwnerPolicy
      */
     public function update(User $user, Owner $owner): bool
     {
-        //
+
     }
 
     /**
@@ -45,7 +45,7 @@ class OwnerPolicy
      */
     public function delete(User $user, Owner $owner): bool
     {
-
+        //
     }
 
     /**
