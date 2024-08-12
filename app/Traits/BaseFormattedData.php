@@ -2,13 +2,16 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Carbon;
 
 trait BaseFormattedData
 {
-    public function fullName(): string
+    public function fullName(): Attribute
     {
-        return $this->name . ' ' . $this->last_name;
+        return Attribute::make(
+            get: fn (string $value) => ucfirst($value),
+        );
     }
 
     public function fullAddress(): string
@@ -18,10 +21,10 @@ trait BaseFormattedData
 
     public function phoneNumber(): string
     {
-        return $this->phonePrefix->prefix . ' ' . $this->area_code . ' ' . $this->phone_number;
+        return $this->phonePrefixes->prefix . ' ' . $this->area_code . ' ' . $this->phone_number;
     }
 
-    protected function inputDateBirthDate(): string
+    public function inputDateBirthDate(): string
     {
         return Carbon::parse($this->birth_date)->format('Y-m-d');
     }

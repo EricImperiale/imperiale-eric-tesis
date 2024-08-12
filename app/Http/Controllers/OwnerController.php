@@ -23,7 +23,7 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        $builder = $this->repo->withRelations(['phonePrefix']);
+        $builder = $this->repo->withRelations(['phonePrefixes']);
 
         $owners = $builder->paginate(2);
 
@@ -84,7 +84,10 @@ class OwnerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('owners.edit-form', [
+            'owner' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+            'phonePrefixes' => PhonePrefix::all(),
+        ]);
     }
 
     /**

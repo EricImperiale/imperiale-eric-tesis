@@ -26,6 +26,9 @@ Route::get('/propietarios/crear', [OwnerController::class, 'create'])
 Route::post('/propietarios/crear', [OwnerController::class, 'processCreate'])
     ->name('owners.processCreate')
     ->middleware(VerifyAuth::class);
+Route::get('/propietarios/{id}/editar', [OwnerController::class, 'edit'])
+    ->name('owners.editForm')
+    ->middleware(VerifyAuth::class);
 Route::get('/propietarios/{id}/eliminar', [OwnerController::class, 'delete'])
     ->name('owners.deleteForm')
     ->middleware(VerifyAuth::class);

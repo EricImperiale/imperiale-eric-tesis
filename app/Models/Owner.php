@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use App\Traits\BaseFormattedData;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use PhpParser\Node\Attribute;
 
 /**
  *
@@ -53,12 +52,16 @@ use PhpParser\Node\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Owner wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Owner whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Owner whereUpdatedAt($value)
+ * @property int $zip_code
+ * @property-read \App\Models\PhonePrefix $phonePrefixes
+ * @method static \Illuminate\Database\Eloquent\Builder|Owner whereZipCode($value)
  * @mixin \Eloquent
  */
 class Owner extends Model
 {
-    use HasFactory;
     use BaseFormattedData;
+
+    protected $primaryKey = 'owner_id';
 
     protected $fillable = [
         'name',
@@ -78,7 +81,34 @@ class Owner extends Model
         'phone_prefix_fk_id',
     ];
 
-    public function phonePrefix(): BelongsTo
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return ucwords($this->name . ' ' . $this->last_name);
+            },
+        );
+    }
+
+    protected function fullAddress(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return ucwords($this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->state);
+            },
+        );
+    }
+
+    protected function FormattedPhoneNumber(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->phonePrefixes->prefix . ' ' .  $this->phone_number;
+            },
+        );
+    }
+
+    public function phonePrefixes(): BelongsTo
     {
         return $this->belongsTo(
             PhonePrefix::class,

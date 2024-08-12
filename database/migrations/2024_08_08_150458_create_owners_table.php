@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('owners', function (Blueprint $table) {
-            $table->id('owner_id');
+            $table->id('id');
             $table->string('name', 150);
             $table->string('last_name', 150);
             $table->unsignedInteger('dni');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('state', 150);
             $table->string('neighborhood', 150);
             $table->unsignedInteger('zip_code');
-            $table->string('phone_number', 50);
+            $table->unsignedInteger('phone_number');
             $table->date('birth_date');
             $table->timestamps();
         });

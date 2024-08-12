@@ -1,7 +1,6 @@
 @php
 /** @var \App\Models\Owner[]|\Illuminate\Database\Eloquent\Collection $owners */
 @endphp
-
 <x-app-layout
     title="Tus Propietarios"
     class=""
@@ -27,7 +26,10 @@
 
         @if($owners->isNotEmpty())
             <div class="overflow-x-auto">
-                <x-table :info="$owners">
+                <x-table
+                    :info="$owners"
+                    model="owners"
+                >
                     <thead>
                     <tr>
                         <th class="px-4 py-2 text-left">Nombre Completo</th>

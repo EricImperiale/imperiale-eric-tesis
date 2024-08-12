@@ -4,18 +4,19 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
 
-class Table extends Component
+class ActionLink extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public LengthAwarePaginator $info,
+        public string $href,
+        public string $class,
+        public string $action,
         public string $model,
+        public int $modelId,
     )
     {}
 
@@ -24,6 +25,6 @@ class Table extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.table');
+        return view('components.action-link');
     }
 }
