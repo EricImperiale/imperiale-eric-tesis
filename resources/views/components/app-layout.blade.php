@@ -148,7 +148,7 @@
                 </div>
             </header>
 
-            <main class="flex-1 p-4">
+            <main class="flex-1 p-4 {{ $class }}">
                 {{ $slot }}
             </main>
         </div>

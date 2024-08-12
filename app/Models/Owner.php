@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use PhpParser\Node\Attribute;
 
 /**
- * 
+ *
  *
  * @property int $owner_id
  * @property string $name

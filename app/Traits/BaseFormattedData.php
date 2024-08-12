@@ -15,4 +15,9 @@ trait BaseFormattedData
     {
         return $this->phonePrefix->prefix . ' ' . $this->area_code . ' ' . $this->phone_number;
     }
+
+    protected function inputDateBirthDate()
+    {
+        return Carbon::parse($this->birth_date)->format('Y-m-d');
+    }
 }

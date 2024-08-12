@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Owner;
 
+use App\Rules\VerifiyDniAndCuitMatch;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,61 +21,66 @@ class CreateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+    // TODO: PREGUNTAR SI ESTO ES PROPENSO A INYECCIÓN SQL.
     public function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'dni' => ['required', 'digits:8', 'unique:propietarios,dni', function ($attribute, $value, $fail) {
-                $cuit = $this->cuit;
-                if (!str_contains($cuit, $value)) {
-                    $fail('El DNI debe estar contenido en el CUIT.');
-                }
-            }],
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dni' => 'required|digits:8|unique:owners,dni',
             'cuit' => [
                 'required',
-                'digits:12',
-                'unique:propietarios,cuit',
-                function ($attribute, $value, $fail) {
-                    $dni = $this->dni;
-                    if (substr($value, 2, 8) !== $dni) {
-                        $fail('El CUIT debe contener el DNI.');
-                    }
-                },
+                'digits:11',
+                'unique:owners,cuit',
+                new VerifiyDniAndCuitMatch,
             ],
-            'email' => 'required|email|max:255|unique:propietarios,email',
-            'direccion' => 'required|string|max:255',
-            'altura' => 'nullable|numeric|min:1',
-            'ciudad' => 'nullable|string|max:255',
-            'pais' => 'required|string|max:255',
-            'provincia' => 'nullable|string|max:255',
-            'barrio' => 'nullable|string|max:255',
-            'codigo_postal' => 'nullable|string|max:10',
-            'codigo_de_area' => 'required|string|max:10',
-            'numero_de_telefono' => 'nullable|string|max:15',
-            'fecha_de_nacimiento' => 'nullable|date|before_or_equal:today',
+            'email' => 'required|email|unique:owners,email',
+            'address' => 'required|string|max:255',
+            'address_number' => 'required|integer',
+            'city' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'neighborhood' => 'required|string|max:255',
+            'zip_code' => 'required|string|max:10',
+            'phone_prefix_fk_id' => 'required|exists:phone_prefixes,phone_prefix_id',
+            'phone_number' => 'required|string|max:20',
+            'birth_date' => 'required|date|before_or_equal:today',
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
-            'nombre.required' => 'El nombre es obligatorio.',
-            'apellido.required' => 'El apellido es obligatorio.',
+            'name.required' => 'El nombre es obligatorio.',
+            'last_name.required' => 'El apellido es obligatorio.',
             'dni.required' => 'El DNI es obligatorio.',
             'dni.digits' => 'El DNI debe tener 8 dígitos.',
-            'dni.unique' => 'El DNI ya está registrado.',
+            'dni.unique' => 'Este DNI ya está registrado.',
             'cuit.required' => 'El CUIT es obligatorio.',
-            'cuit.digits' => 'El CUIT debe tener 12 dígitos.',
-            'cuit.unique' => 'El CUIT ya está registrado.',
-            'email.required' => 'El email es obligatorio.',
-            'email.email' => 'El email debe ser una dirección válida.',
-            'email.unique' => 'El email ya está registrado.',
-            'direccion.required' => 'La dirección es obligatoria.',
-            'pais.required' => 'El país es obligatorio.',
-            'codigo_de_area.required' => 'El código de área es obligatorio.',
-            'fecha_de_nacimiento.date' => 'La fecha de nacimiento no es válida.',
-            'fecha_de_nacimiento.before_or_equal' => 'La fecha de nacimiento no puede ser posterior a hoy.',
+            'cuit.digits' => 'El CUIT debe tener 11 dígitos.',
+            'cuit.unique' => 'Este CUIT ya está registrado.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'El correo electrónico debe ser válido.',
+            'email.unique' => 'Este correo electrónico ya está registrado.',
+            'address.required' => 'La dirección es obligatoria.',
+            'address_number.required' => 'La altura es obligatoria.',
+            'address_number.integer' => 'La altura debe ser un número entero.',
+            'city.required' => 'La ciudad es obligatoria.',
+            'country.required' => 'El país es obligatorio.',
+            'state.required' => 'La provincia es obligatoria.',
+            'neighborhood.required' => 'El barrio es obligatorio.',
+            'zip_code.required' => 'El código postal es obligatorio.',
+            'phone_prefix_fk_id.required' => 'El prefijo telefónico es obligatorio.',
+            'phone_prefix_fk_id.exists' => 'El prefijo telefónico seleccionado no es válido.',
+            'phone_number.required' => 'El número de teléfono es obligatorio.',
+            'birth_date.required' => 'La fecha de nacimiento es obligatoria.',
+            'birth_date.date' => 'La fecha de nacimiento debe ser una fecha válida.',
         ];
     }
 }

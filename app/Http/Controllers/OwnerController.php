@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Owner\CreateRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
 use App\Repositories\BaseEloquentRepository;
@@ -40,7 +41,7 @@ class OwnerController extends Controller
         ]);
     }
 
-    public function processCreate()
+    public function processCreate(CreateRequest $request)
     {
 
     }

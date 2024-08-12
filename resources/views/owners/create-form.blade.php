@@ -1,7 +1,11 @@
 @php
 /** @var \App\Models\PhonePrefix[]|\Illuminate\Database\Eloquent\Collection $phonePrefixes */
 @endphp
-<x-app-layout title="Crear Propietario">
+
+<x-app-layout
+    title="Crear Propietario"
+    class="overflow-y-scroll"
+>
     <div class="container mx-auto">
         <header class="mb-4">
             <h2 class="text-2xl font-bold text-gray-800">Crear Propietario</h2>
@@ -22,7 +26,12 @@
                         id="name"
                         name="name"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('name') }}"
                     >
+
+                    @error('name')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -32,7 +41,12 @@
                         id="last_name"
                         name="last_name"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('last_name') }}"
                     >
+
+                    @error('last_name')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -42,7 +56,12 @@
                         id="dni"
                         name="dni"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('dni') }}"
                     >
+
+                    @error('dni')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -52,7 +71,12 @@
                         id="cuit"
                         name="cuit"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('cuit') }}"
                     >
+
+                    @error('cuit')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -61,7 +85,13 @@
                         type="email"
                         id="email"
                         name="email"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('email') }}"
+                    >
+
+                    @error('email')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -71,7 +101,12 @@
                         id="address"
                         name="address"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('address') }}"
                     >
+
+                    @error('address')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -81,7 +116,12 @@
                         id="address_number"
                         name="address_number"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('address_number') }}"
                     >
+
+                    @error('address_number')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -91,7 +131,12 @@
                         id="city"
                         name="city"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('city') }}"
                     >
+
+                    @error('city')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -100,7 +145,13 @@
                         type="text"
                         id="country"
                         name="country"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('country') }}"
+                    >
+
+                    @error('country')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -110,17 +161,27 @@
                         id="state"
                         name="state"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('state') }}"
                     >
+
+                    @error('state')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
-                    <label for="barrio" class="block text-sm font-medium text-gray-700">Barrio</label>
+                    <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
                     <input
                         type="text"
                         id="neighborhood"
                         name="neighborhood"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('neighborhood') }}"
                     >
+
+                    @error('neighborhood')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -130,24 +191,36 @@
                         id="zip_code"
                         name="zip_code"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('zip_code') }}"
                     >
+
+                    @error('zip_code')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label for="area_code" class="block text-sm font-medium text-gray-700">Código de Área</label>
                     <select
                         id="area_code"
-                        name="area_code"
+                        name="phone_prefix_fk_id"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
-                        <option value="">Seleccione un código de área</option>
+                        <option value="">Selecciona un código de área</option>
 
                         @foreach($phonePrefixes as $prefix)
-                            <option value="{{ $prefix->phone_prefix_id }}">
+                            <option
+                                value="{{ $prefix->phone_prefix_id }}"
+                                @selected(old('phone_prefix_fk_id') == $prefix->phone_prefix_id)
+                            >
                                 {{ $prefix->name }} {{ $prefix->prefix }}
                             </option>
                         @endforeach
                     </select>
+
+                    @error('phone_prefix_fk_id')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -157,7 +230,12 @@
                         id="phone_number"
                         name="phone_number"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('phone_number') }}"
                     >
+
+                    @error('phone_number')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -167,7 +245,12 @@
                         id="birth_date"
                         name="birth_date"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('birth_date') }}"
                     >
+
+                    @error('birth_date')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 

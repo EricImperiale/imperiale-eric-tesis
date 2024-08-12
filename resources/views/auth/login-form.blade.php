@@ -1,4 +1,7 @@
-<x-app-layout title="Iniciar Sesión">
+<x-app-layout
+    title="Iniciar Sesión"
+    class=""
+>
     <section class="w-full max-w-md p-6 bg-white rounded-md shadow-md">
         <header class="mb-3 text-3xl text-center">
             <h2 class="font-bold">Iniciar Sesión</h2>
@@ -11,11 +14,7 @@
             @csrf
 
                 <div class="mb-4">
-                    <label
-                        for="email"
-                        class="block mb-2 text-sm font-medium text-gray-700">
-                        Correo Electrónico
-                    </label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Correo Electrónico</label>
                     <input
                         type="email"
                         id="email"
@@ -29,11 +28,7 @@
                     @enderror
                 </div>
                 <div class="mb-6">
-                    <label
-                        for="password"
-                        class="block mb-2 text-sm font-medium text-gray-700">
-                        Contraseña
-                    </label>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Contraseña</label>
                     <input
                         type="password"
                         id="password"
