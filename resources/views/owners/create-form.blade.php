@@ -49,30 +49,56 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
+                <div x-data="{ dni: '{{ old('dni') }}', maxLength: 8 }">
+                    <label for="dni" class="block text-sm font-medium text-gray-700">DNI (Sin puntos)</label>
                     <input
                         type="number"
                         id="dni"
                         name="dni"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value="{{ old('dni') }}"
+                        x-model="dni"
+                        x-bind:value="dni"
                     >
+
+                    <div x-show="dni.length <= maxLength">
+                        <p class="mt-2 text-sm text-gray-600">
+                            Caracteres restantes: <span x-text="maxLength - dni.length"></span>
+                        </p>
+                    </div>
+
+                    <div x-show="dni.length > maxLength">
+                        <p class="mt-2 text-sm text-red-600">
+                            El DNI no puede tener más de 8 caracteres.
+                        </p>
+                    </div>
 
                     @error('dni')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
-                    <label for="cuit" class="block text-sm font-medium text-gray-700">CUIT</label>
+                <div x-data="{ cuit: '{{ old('cuit') }}', maxLength: 12 }">
+                    <label for="cuit" class="block text-sm font-medium text-gray-700">CUIT (Sin puntos ni guiones)</label>
                     <input
-                        type="number"
+                        type="text"
                         id="cuit"
                         name="cuit"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value="{{ old('cuit') }}"
+                        x-model="cuit"
+                        x-bind:value="cuit"
                     >
+
+                    <div x-show="cuit.length <= maxLength">
+                        <p class="mt-2 text-sm text-gray-600">
+                            Caracteres restantes: <span x-text="maxLength - cuit.length"></span>
+                        </p>
+                    </div>
+
+                    <div x-show="cuit.length > maxLength">
+                        <p class="mt-2 text-sm text-red-600">
+                            El CUIT no puede tener más de 12 caracteres.
+                        </p>
+                    </div>
 
                     @error('cuit')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
