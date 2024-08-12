@@ -7,6 +7,7 @@ use App\Models\Owner;
 use App\Models\PhonePrefix;
 use App\Repositories\BaseEloquentRepository;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class OwnerController extends Controller
 {
@@ -43,7 +44,23 @@ class OwnerController extends Controller
 
     public function processCreate(CreateRequest $request)
     {
+        $data = $request->except(['_token']);
 
+        try {
+            $owner = $this->repo->create($data);
+
+            return redirect()
+                ->route('owners.index')
+                ->withInput()
+                ->with('message', 'El Propietario <b>' . $owner->fullName . '</b> fue creado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('owners.createForm')
+                ->withInput()
+                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.')
+                ->with('type', 'error');
+        }
     }
 
     /**

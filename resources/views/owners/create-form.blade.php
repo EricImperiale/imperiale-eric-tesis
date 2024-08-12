@@ -57,7 +57,6 @@
                         name="dni"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         x-model="dni"
-                        x-bind:value="dni"
                     >
 
                     <div x-show="dni.length <= maxLength">
@@ -77,7 +76,7 @@
                     @enderror
                 </div>
 
-                <div x-data="{ cuit: '{{ old('cuit') }}', maxLength: 12 }">
+                <div x-data="{ cuit: '{{ old('cuit') }}', maxLength: 11 }">
                     <label for="cuit" class="block text-sm font-medium text-gray-700">CUIT (Sin puntos ni guiones)</label>
                     <input
                         type="text"
@@ -85,7 +84,6 @@
                         name="cuit"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         x-model="cuit"
-                        x-bind:value="cuit"
                     >
 
                     <div x-show="cuit.length <= maxLength">

@@ -6,6 +6,11 @@ use Illuminate\Support\Carbon;
 
 trait BaseFormattedData
 {
+    public function fullName()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
+
     public function fullAddress()
     {
         return $this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->state;
