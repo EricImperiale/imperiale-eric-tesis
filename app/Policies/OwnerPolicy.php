@@ -37,7 +37,7 @@ class OwnerPolicy
      */
     public function update(User $user, Owner $owner): bool
     {
-
+        return $user->has_permission;
     }
 
     /**

@@ -102,6 +102,13 @@ class OwnerController extends Controller
         try {
             $owner = $this->repo->update($id, $data);
 
+            if ($request->user()->cannot('update', $owner)) {
+                return redirect()
+                    ->route('owners.index')
+                    ->with('message', 'Solo el administrador puede editar un Propietario.')
+                    ->with('type', 'error');
+            }
+
             return redirect()
                 ->route('owners.index')
                 ->withInput()
@@ -131,19 +138,16 @@ class OwnerController extends Controller
     {
         $owner = $this->repo->findOrFail($id);
 
-        // TODO: Pasar a otro lado.
-        // Diferencia entre usar can y cannot. y authorize.
         if ($request->user()->cannot('delete', $owner)) {
             return redirect()
                 ->route('owners.index')
-                ->with('message', 'Solo el Administrador puede realizar está acción.')
+                ->with('message', 'Solo el administrador puede eliminar un Propietario.')
                 ->with('type', 'error');
         }
 
-        // TODO: Pasar a otro lado.
         if ((int) $request->input('dni') !== $owner->dni) {
             return back()
-                ->with('message', 'El DNI no coincide con el del propietario que querés eliminar.')
+                ->with('message', 'El DNI no coincide con el Propietario que querés eliminar.')
                 ->with('type', 'error')
                 ->withInput();
         }

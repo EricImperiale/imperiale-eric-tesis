@@ -18,12 +18,14 @@
             </a>
         </div>
 
-        <x-filter-by-name-form
-            route="owners.index"
-            name="n"
-            placeholder="Nombre completo"
-            buttonText="Filtrar"
-        />
+        @if($owners->isNotEmpty())
+            <x-filter-by-name-form
+                route="owners.index"
+                name="n"
+                placeholder="Nombre completo"
+                buttonText="Filtrar"
+            />
+        @endif
 
         @if($owners->isNotEmpty())
             <div class="overflow-x-auto">
@@ -38,13 +40,15 @@
                         <th class="px-4 py-2 text-left">Email</th>
                         <th class="px-4 py-2 text-left">Dirección Completa</th>
                         <th class="px-4 py-2 text-left">Número de Teléfono</th>
-                        <th class="px-4 py-2 text-left">Acciones</th>
+                        @if(auth()->user()->has_permission)
+                            <th class="px-4 py-2 text-left">Acciones</th>
+                        @endif
                     </tr>
                     </thead>
                 </x-table>
             </div>
         @else
-            <p>Aún no hay propietarios cargados. <a href="{{ route('owners.formCreate') }}">Creá uno</a></p>
+            <p class="text-gray-700">Aún no hay propietarios cargados.</p>
         @endif
 
         <div class="mt-4">

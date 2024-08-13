@@ -12,15 +12,15 @@
                 <td class="px-4 py-2">{{ $data->fullAddress }}</td>
                 <td class="px-4 py-2">{{ $data->formattedPhoneNumber }}</td>
                 <td class="px-4 py-2">
-                    <x-action-link
-                        class="px-2 py-1 text-blue-600 hover:underline"
-                        action="edit"
-                        model="{{ $model }}"
-                        modelId="{{ $data->id }}"
-                    >
-                        Editar
-                    </x-action-link>
                     @if(auth()->user()->has_permission)
+                        <x-action-link
+                            class="px-2 py-1 text-blue-600 hover:underline"
+                            action="edit"
+                            model="{{ $model }}"
+                            modelId="{{ $data->id }}"
+                        >
+                            Editar
+                        </x-action-link>
                         <x-action-link
                             class="px-2 py-1 text-red-600 hover:underline"
                             action="delete"
