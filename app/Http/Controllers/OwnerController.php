@@ -6,9 +6,10 @@ use App\Http\Requests\Owner\CreateRequest;
 use App\Http\Requests\Owner\EditRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
+use App\Models\User;
 use App\Repositories\BaseEloquentRepository;
 use Illuminate\Http\Request;
-use Mockery\Exception;
+use App\Http\Requests\Owner\ConfirmDeleteRequest;
 
 class OwnerController extends Controller
 {
@@ -120,9 +121,46 @@ class OwnerController extends Controller
      */
     public function delete(string $id)
     {
-        return view('owners.delete-form', [
-            'owner' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
-            'phonePrefixes' => PhonePrefix::all(),
+        // TODO: traerlo con las propiedades.
+        return view('security.confirm-delete', [
+            'model' => $this->repo->findOrFail($id),
         ]);
+    }
+
+    public function confirmDelete(ConfirmDeleteRequest $request, string $id)
+    {
+        $owner = $this->repo->findOrFail($id);
+
+        // TODO: Pasar a otro lado.
+        // Diferencia entre usar can y cannot. y authorize.
+        if ($request->user()->cannot('delete', $owner)) {
+            return redirect()
+                ->route('owners.index')
+                ->with('message', 'Solo el Administrador puede realizar está acción.')
+                ->with('type', 'error');
+        }
+
+        // TODO: Pasar a otro lado.
+        if ((int) $request->input('dni') !== $owner->dni) {
+            return back()
+                ->with('message', 'El DNI no coincide con el del propietario que querés eliminar.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+
+        try {
+            $this->repo->delete($id);
+
+            return redirect()
+                ->route('owners.index')
+                ->withInput()
+                ->with('message', 'El Propietario fue eliminado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('owners.index')
+                ->with('message', 'Ocurrió un error al eliminar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error');
+        }
     }
 }

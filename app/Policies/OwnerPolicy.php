@@ -45,7 +45,7 @@ class OwnerPolicy
      */
     public function delete(User $user, Owner $owner): bool
     {
-        //
+        return $user->has_permission;
     }
 
     /**

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginFormController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Middleware\VerifyAuth;
+use App\Http\Middleware\ConfirmDelete;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,12 @@ Route::post('/propietarios/{id}/editar', [OwnerController::class, 'processUpdate
     ->middleware(VerifyAuth::class);
 Route::get('/propietarios/{id}/eliminar', [OwnerController::class, 'delete'])
     ->name('owners.deleteForm')
+    ->middleware(VerifyAuth::class);
+Route::get('/propietarios/{id}/confirmar-eliminacion', [OwnerController::class, 'delete'])
+    ->name('owners.confirmDelete')
+    ->middleware(VerifyAuth::class);
+Route::post('/propietarios/{id}/eliminar', [OwnerController::class, 'confirmDelete'])
+    ->name('owners.processDelete')
     ->middleware(VerifyAuth::class);
 
 

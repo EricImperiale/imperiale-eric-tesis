@@ -20,14 +20,16 @@
                     >
                         Editar
                     </x-action-link>
-                    <x-action-link
-                        class="px-2 py-1 text-red-600 hover:underline"
-                        action="delete"
-                        model="{{ $model }}"
-                        modelId="{{ $data->id }}"
-                    >
-                        Eliminar
-                    </x-action-link>
+                    @if(auth()->user()->has_permission)
+                        <x-action-link
+                            class="px-2 py-1 text-red-600 hover:underline"
+                            action="delete"
+                            model="{{ $model }}"
+                            modelId="{{ $data->id }}"
+                        >
+                            Eliminar
+                        </x-action-link>
+                    @endif
                 </td>
             </tr>
         @endforeach

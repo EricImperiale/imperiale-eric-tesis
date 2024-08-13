@@ -1,6 +1,7 @@
-@php
+<?php
 /** @var \App\Models\Owner[]|\Illuminate\Database\Eloquent\Collection $owners */
-@endphp
+?>
+
 <x-app-layout
     title="Tus Propietarios"
     class=""

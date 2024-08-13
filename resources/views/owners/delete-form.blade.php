@@ -7,6 +7,7 @@
     title="Eliminar Propietario :: {{ $owner->fullName }}"
     class="overflow-y-scroll"
 >
+
     <div class="container mx-auto">
         <header class="mb-4">
             <h2 class="text-2xl font-bold text-gray-800">Eliminar Propietario</h2>
@@ -14,7 +15,7 @@
         </header>
 
         <form
-            action="{{ route('owners.editForm', ['id' => $owner->id]) }}"
+            action="#"
             method="post"
             class="bg-white p-6 border border-gray-300 rounded-lg shadow-md"
         >
@@ -281,15 +282,14 @@
                     Cancelar
                 </a>
 
-                <form action="">
-                    <x-button
-                        type="submit"
-                        class="ml-2 px-4 py-2 border border-red-600 text-red-600 font-semibold rounded-md bg-white shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                    >
-                        Eliminar Propietario
-                    </x-button>
-                </form>
+                <a
+                    href="{{ route('owners.confirmDelete', ['id' => $owner->id]) }}"
+                    class="px-4 py-2 ml-2 border border-red-600 text-red-600 font-semibold rounded-md bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                >
+                    Confirmar Eliminación
+                </a>
             </div>
         </form>
     </div>
 </x-app-layout>
+

@@ -9,11 +9,11 @@
 
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
-@if(request()->is(['iniciar-sesion', 'registro']))
-    <body class="flex items-center justify-center min-h-screen bg-gray-100">
-        {{ $slot }}
-    </body>
-@else
+    @if(request()->is(['iniciar-sesion', 'registro']))
+        <body class="flex items-center justify-center min-h-screen bg-gray-100">
+            {{ $slot }}
+        </body>
+    @else
     <body class="flex h-screen overflow-hidden bg-gray-100">
         <aside class="fixed inset-y-0 z-30 flex flex-col w-64 transition-transform duration-300 transform bg-white shadow-lg lg:translate-x-0 -translate-x-full lg:static lg:inset-0"
                id="sidebar">
@@ -45,7 +45,6 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Inquilinos -->
                     <li class="mb-2">
                         <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
                                 onclick="toggleDropdown('inquilinosDropdown')">
@@ -67,7 +66,6 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Propiedades -->
                     <li class="mb-2">
                         <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
                                 onclick="toggleDropdown('propiedadesDropdown')">
@@ -89,7 +87,6 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Propietarios -->
                     <li class="mb-2">
                         <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
                                 onclick="toggleDropdown('propietariosDropdown')">
@@ -126,12 +123,13 @@
                     </button>
 
                     <div class="relative">
-                        <button class="p-2 text-gray-700 hover:bg-gray-200 focus:outline-none" onclick="toggleUserMenu()">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zM12 14v7l9-5-9-5-9 5 9 5z"></path>
+                        <button class="p-2 text-gray-700 hover:bg-gray-200 focus:outline-none flex" onclick="toggleUserMenu()">
+                            <p class="mr-2">{{ auth()->user()->full_name ??  auth()->user()->email }}</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                         </button>
-                        <div class="user-menu absolute right-0 w-48 mt-2 bg-white shadow-md rounded-md">
+                        <div class="user-menu absolute right-0 w-48 mt-2 bg-white shadow-md rounded-md z-50">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
 
                             <form
@@ -141,7 +139,7 @@
                                 @csrf
 
                                 <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Cerrar Sesión
+                                   Cerrar Sesión
                                 </button>
                             </form>
                         </div>
