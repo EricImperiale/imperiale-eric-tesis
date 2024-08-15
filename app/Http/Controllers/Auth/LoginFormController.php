@@ -20,7 +20,7 @@ class LoginFormController extends Controller
         if (!auth()->attempt($credentials)) {
             return redirect()
                 ->route('auth.loginForm')
-                ->with('message', 'Las credenciales ingresadas no coinciden con nuestros registros.')
+                ->with('message', 'Usuario o contraseña incorrectos.')
                 ->with('type', 'error')
                 ->withInput();
         }

@@ -1,7 +1,6 @@
 <div class="mb-4">
     <form
         action="{{ route($route) }}"
-        method="GET"
         class="flex items-center space-x-4"
     >
         <input
@@ -9,6 +8,7 @@
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
             class="p-2 border border-gray-300 rounded-md w-full"
+            value="{{ $baseSearches->getFullName() }}"
         >
 
         <x-button
@@ -19,3 +19,4 @@
         </x-button>
     </form>
 </div>
+

@@ -6,8 +6,8 @@ use App\Http\Requests\Owner\CreateRequest;
 use App\Http\Requests\Owner\EditRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
-use App\Models\User;
 use App\Repositories\BaseEloquentRepository;
+use App\Searches\BaseSearches;
 use Illuminate\Http\Request;
 use App\Http\Requests\Owner\ConfirmDeleteRequest;
 
@@ -23,14 +23,23 @@ class OwnerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $builder = $this->repo->withRelations(['phonePrefixes']);
+
+        $baseSearches = new BaseSearches(
+            fullName: $request->query('fn'),
+        );
+
+        if ($baseSearches->getFullName()) {
+            $builder->where('name', 'LIKE', '%' . $baseSearches->getFullName() . '%');
+        }
 
         $owners = $builder->paginate(2);
 
         return view('owners.index', [
             'owners' => $owners,
+            'baseSearches' => $baseSearches,
         ]);
     }
 
@@ -54,12 +63,12 @@ class OwnerController extends Controller
             return redirect()
                 ->route('owners.index')
                 ->withInput()
-                ->with('message', 'El Propietario <b>' . e($owner->fullName) . '</b> fue creado con éxito.')
+                ->with('message', 'El Propietario fue creado con éxito.')
                 ->with('type', 'success');
         } catch(\Exception $e) {
             return redirect()
                 ->route('owners.index')
-                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . htmlspecialchars($e->getMessage()))
                 ->with('type', 'error')
                 ->withInput();
         }

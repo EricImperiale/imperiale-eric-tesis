@@ -1,10 +1,9 @@
 <?php
 /** @var \App\Models\Owner[]|\Illuminate\Database\Eloquent\Collection $owners */
+/** @var \App\Searches\BaseSearches $baseSearches */
 ?>
-
 <x-app-layout
     title="Tus Propietarios"
-    class=""
 >
     <div class="container mx-auto">
 
@@ -18,13 +17,18 @@
             </a>
         </div>
 
-        @if($owners->isNotEmpty())
-            <x-filter-by-name-form
+        @if($owners)
+            <x-base-filter
                 route="owners.index"
-                name="n"
+                name="fn"
                 placeholder="Nombre completo"
+                :baseSearches="$baseSearches"
                 buttonText="Filtrar"
             />
+        @endif
+
+        @if($baseSearches->getFullName())
+            <p class="mb-3">Se muestran los resultados para la búsqueda del propietario <b>{{ $baseSearches->getFullName() }}</b>.</p>
         @endif
 
         @if($owners->isNotEmpty())

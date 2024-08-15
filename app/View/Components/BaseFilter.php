@@ -2,11 +2,12 @@
 
 namespace App\View\Components;
 
+use App\Searches\BaseSearches;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FilterByNameForm extends Component
+class BaseFilter extends Component
 {
     /**
      * Create a new component instance.
@@ -16,6 +17,7 @@ class FilterByNameForm extends Component
         public string $name,
         public string $placeholder,
         public string $buttonText,
+        public BaseSearches $baseSearches,
     )
     {}
 
@@ -24,6 +26,6 @@ class FilterByNameForm extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.filter-by-name-form');
+        return view('components.base-filter');
     }
 }

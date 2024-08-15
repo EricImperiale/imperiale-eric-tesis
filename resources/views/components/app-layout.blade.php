@@ -99,12 +99,19 @@
                         </button>
                         <ul class="hidden pl-4 mt-2 space-y-1" id="propietariosDropdown">
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Crear
-                                    Propietario</a>
+                                <a href="{{ route('owners.createForm') }}"
+                                   class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Crear Propietario
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Ver
-                                    Propietarios</a>
+                                <a
+                                    href="{{ route('owners.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Ver Propietarios
+                                </a>
                             </li>
                         </ul>
                     </li>

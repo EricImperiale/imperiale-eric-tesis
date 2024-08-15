@@ -13,7 +13,6 @@ class Alert extends Component
      */
     public function __construct(
         public string $type,
-        public bool $withHeader,
         public string $message,
         public string $style,
     )
