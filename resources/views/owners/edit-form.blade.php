@@ -51,56 +51,30 @@
                     @enderror
                 </div>
 
-                <div x-data="{ dni: '{{ old('dni') ?? $owner->dni }}', maxLength: 8 }">
+                <div>
                     <label for="dni" class="block text-sm font-medium text-gray-700">DNI (Sin puntos)</label>
                     <input
                         type="number"
                         id="dni"
                         name="dni"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        x-model="dni"
                         autocomplete="off"
                     >
-
-                    <div x-show="dni.length <= maxLength">
-                        <p class="mt-2 text-sm text-gray-600">
-                            Caracteres restantes: <span x-text="maxLength - dni.length"></span>
-                        </p>
-                    </div>
-
-                    <div x-show="dni.length > maxLength">
-                        <p class="mt-2 text-sm text-red-600">
-                            El DNI no puede tener más de 8 caracteres.
-                        </p>
-                    </div>
 
                     @error('dni')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div x-data="{ cuit: '{{ old('cuit') ?? $owner->cuit }}', maxLength: 11 }">
+                <div>
                     <label for="cuit" class="block text-sm font-medium text-gray-700">CUIT (Sin puntos ni guiones)</label>
                     <input
                         type="text"
                         id="cuit"
                         name="cuit"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        x-model="cuit"
                         autocomplete="off"
                     >
-
-                    <div x-show="cuit.length <= maxLength">
-                        <p class="mt-2 text-sm text-gray-600">
-                            Caracteres restantes: <span x-text="maxLength - cuit.length"></span>
-                        </p>
-                    </div>
-
-                    <div x-show="cuit.length > maxLength">
-                        <p class="mt-2 text-sm text-red-600">
-                            El CUIT no puede tener más de 12 caracteres.
-                        </p>
-                    </div>
 
                     @error('cuit')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -290,14 +264,12 @@
                     Cancelar
                 </a>
 
-                <form action="">
-                    <x-button
-                        type="submit"
-                        class="px-4 py-2 ml-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                        Editar Propietario
-                    </x-button>
-                </form>
+                <x-button
+                    type="submit"
+                    class="px-4 py-2 ml-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                    Editar Propietario
+                </x-button>
             </div>
         </form>
     </div>

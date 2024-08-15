@@ -38,16 +38,16 @@
                     model="owners"
                 >
                     <thead>
-                    <tr>
-                        <th class="px-4 py-2 text-left">Nombre Completo</th>
-                        <th class="px-4 py-2 text-left">DNI</th>
-                        <th class="px-4 py-2 text-left">Email</th>
-                        <th class="px-4 py-2 text-left">Dirección Completa</th>
-                        <th class="px-4 py-2 text-left">Número de Teléfono</th>
-                        @if(auth()->user()->has_permission)
-                            <th class="px-4 py-2 text-left">Acciones</th>
-                        @endif
-                    </tr>
+                        <tr>
+                            <th class="px-4 py-2 text-left">Nombre Completo</th>
+                            <th class="px-4 py-2 text-left">DNI</th>
+                            <th class="px-4 py-2 text-left">Email</th>
+                            <th class="px-4 py-2 text-left">Dirección Completa</th>
+                            <th class="px-4 py-2 text-left">Número de Teléfono</th>
+                            @if(auth()->user()->has_permission)
+                                <th class="px-4 py-2 text-left">Acciones</th>
+                            @endif
+                        </tr>
                     </thead>
                 </x-table>
             </div>

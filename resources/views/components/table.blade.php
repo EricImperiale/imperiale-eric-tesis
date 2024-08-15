@@ -1,8 +1,6 @@
 <div class="overflow-x-auto">
     <table class="min-w-full bg-white border border-gray-300">
-        <thead>
         {{ $slot }}
-        </thead>
         <tbody>
         @foreach($info as $data)
             <tr class="hover:bg-[#f3f4f6]">
