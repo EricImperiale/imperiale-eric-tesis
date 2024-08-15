@@ -32,7 +32,11 @@ class OwnerController extends Controller
         );
 
         if ($baseSearches->getFullName()) {
-            $builder->where('name', 'LIKE', '%' . $baseSearches->getFullName() . '%');
+            $builder->where(function ($query) use ($baseSearches) {
+                $query
+                    ->orWhere('name', 'LIKE', '%' . $baseSearches->getFullName() . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $baseSearches->getFullName() . '%');
+            });
         }
 
         $owners = $builder->paginate(2);
@@ -58,7 +62,7 @@ class OwnerController extends Controller
         $data = $request->except(['_token']);
 
         try {
-            $owner = $this->repo->create($data);
+            $this->repo->create($data);
 
             return redirect()
                 ->route('owners.index')
