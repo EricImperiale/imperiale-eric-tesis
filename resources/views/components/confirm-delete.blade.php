@@ -10,7 +10,7 @@
             $title = 'Inquilino';
             break;
 
-        case 'Guarantors':
+        case 'guarantors':
             $title = 'Garante';
             break;
     }

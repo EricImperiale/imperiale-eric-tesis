@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Guarantors\CreateRequest;
+use App\Http\Requests\Guarantors\EditRequest;
+use App\Http\Requests\Owner\ConfirmDeleteRequest;
 use App\Models\Guarantor;
 use App\Models\PhonePrefix;
 use App\Repositories\BaseEloquentRepository;
@@ -70,8 +72,80 @@ class GuarantorController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(string $id)
     {
-        return view('guarantors.edit-form');
+        return view('guarantors.edit-form', [
+            'guarantor' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+            'phonePrefixes' => PhonePrefix::all(),
+        ]);
+    }
+
+    public function processUpdate(EditRequest $request, string $id)
+    {
+        $data = $request->except(['_token']);
+
+        try {
+            $guarantor = $this->repo->update($id, $data);
+
+            if ($request->user()->cannot('update', $guarantor)) {
+                return redirect()
+                    ->route('guarantors.index')
+                    ->with('message', 'Solo el administrador puede editar un Garante.')
+                    ->with('type', 'error');
+            }
+
+            return redirect()
+                ->route('guarantors.index')
+                ->withInput()
+                ->with('message', 'El Garante <b>' . e($guarantor->fullName) . '</b> fue editado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('guarantors.index')
+                ->with('message', 'Ocurrió un error al editar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error')
+                ->withInput();
+        }
+    }
+
+    public function delete(string $id)
+    {
+        return view('guarantors.confirm-delete', [
+            'guarantor' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+        ]);
+    }
+
+    public function confirmDelete(ConfirmDeleteRequest $request, string $id)
+    {
+        $tenant = $this->repo->findOrFail($id);
+
+        if ($request->user()->cannot('delete', $tenant)) {
+            return redirect()
+                ->route('guarantors.index')
+                ->with('message', 'Solo el administrador puede eliminar un Garante.')
+                ->with('type', 'error');
+        }
+
+        if ((int) $request->input('dni') !== $tenant->dni) {
+            return back()
+                ->with('message', 'El DNI no coincide con el Garante que querés eliminar.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+
+        try {
+            $this->repo->delete($id);
+
+            return redirect()
+                ->route('guarantors.index')
+                ->withInput()
+                ->with('message', 'El Inquilino fue eliminado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('guarantors.index')
+                ->with('message', 'Ocurrió un error al eliminar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error');
+        }
     }
 }

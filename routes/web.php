@@ -79,8 +79,8 @@ Route::post('/garantes/crear', [GuarantorController::class, 'processCreate'])
 Route::get('/garantes/{id}/editar', [GuarantorController::class, 'edit'])
     ->name('guarantors.editForm')
     ->middleware(VerifyAuth::class);
-Route::post('/garantes/{id}/editar', [GuarantorController::class, 'processEdit'])
-    ->name('guarantors.processEdit')
+Route::post('/garantes/{id}/editar', [GuarantorController::class, 'processUpdate'])
+    ->name('guarantors.processUpdate')
     ->middleware(VerifyAuth::class);
 Route::get('/garantes/{id}/confirmar-eliminacion', [GuarantorController::class, 'delete'])
     ->name('guarantors.confirmDelete')

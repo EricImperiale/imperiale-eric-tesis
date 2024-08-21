@@ -9,7 +9,7 @@
 >
     <div class="container mx-auto">
         <header class="mb-4">
-            <h2 class="text-2xl font-bold text-gray-800">Editar Inquilino</h2>
+            <h2 class="text-2xl font-bold text-gray-800">Editar Garante</h2>
             <p class="mt-2 text-sm text-gray-600">Estás editando a <b>{{ $guarantor->fullName }}</b> con DNI <b>{{ $guarantor->dni }}</b>.</p>
         </header>
 
