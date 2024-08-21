@@ -79,22 +79,6 @@ class OwnerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -142,7 +126,7 @@ class OwnerController extends Controller
     public function delete(string $id)
     {
         // TODO: traerlo con las propiedades.
-        return view('security.confirm-delete', [
+        return view('owners.confirm-delete', [
             'model' => $this->repo->findOrFail($id),
         ]);
     }

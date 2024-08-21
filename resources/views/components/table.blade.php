@@ -3,7 +3,7 @@
         {{ $slot }}
         <tbody>
         @foreach($info as $data)
-           @if($model != 'properties')
+           @if($model !== 'properties')
                <tr class="hover:bg-[#f3f4f6]">
                    <td class="px-4 py-2">{{ $data->fullName }}</td>
                    <td class="px-4 py-2">{{ $data->dni }}</td>

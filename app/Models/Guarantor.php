@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\BaseFormattedData;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -54,6 +57,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Guarantor extends Model
 {
     use HasFactory;
+    use AuthorizesRequests;
 
     protected $fillable = [
         'name',
@@ -72,6 +76,33 @@ class Guarantor extends Model
         'birth_date',
         'phone_prefix_fk_id',
     ];
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return ucwords($this->name . ' ' . $this->last_name);
+            },
+        );
+    }
+
+    protected function fullAddress(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return ucwords($this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->state);
+            },
+        );
+    }
+
+    protected function formattedPhoneNumber(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->phonePrefixes->prefix . ' ' .  $this->phone_number;
+            },
+        );
+    }
 
     public function phonePrefixes(): BelongsTo
     {

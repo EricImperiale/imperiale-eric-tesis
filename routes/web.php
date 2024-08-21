@@ -63,10 +63,31 @@ Route::post('/inquilinos/{id}/editar', [TenantController::class, 'processUpdate'
 Route::get('/inquilinos/{id}/confirmar-eliminacion', [TenantController::class, 'delete'])
     ->name('tenants.confirmDelete')
     ->middleware(VerifyAuth::class);
-Route::POST('/inquilinos/{id}/eliminar', [TenantController::class, 'confirmDelete'])
+Route::post('/inquilinos/{id}/eliminar', [TenantController::class, 'confirmDelete'])
     ->name('tenants.processDelete')
     ->middleware(VerifyAuth::class);
 
+Route::get('/garantes', [GuarantorController::class, 'index'])
+    ->name('guarantors.index')
+    ->middleware(VerifyAuth::class);
+Route::get('/garantes/crear', [GuarantorController::class, 'create'])
+    ->name('guarantors.createForm')
+    ->middleware(VerifyAuth::class);
+Route::post('/garantes/crear', [GuarantorController::class, 'processCreate'])
+    ->name('guarantors.processCreate')
+    ->middleware(VerifyAuth::class);
+Route::get('/garantes/{id}/editar', [GuarantorController::class, 'edit'])
+    ->name('guarantors.editForm')
+    ->middleware(VerifyAuth::class);
+Route::post('/garantes/{id}/editar', [GuarantorController::class, 'processEdit'])
+    ->name('guarantors.processEdit')
+    ->middleware(VerifyAuth::class);
+Route::get('/garantes/{id}/confirmar-eliminacion', [GuarantorController::class, 'delete'])
+    ->name('guarantors.confirmDelete')
+    ->middleware(VerifyAuth::class);
+Route::post('/garantes/{id}/eliminar', [GuarantorController::class, 'confirmDelete'])
+    ->name('guarantors.processDelete')
+    ->middleware(VerifyAuth::class);
 
 Route::get('propiedades', [PropertyController::class, 'index'])
     ->name('properties.index')

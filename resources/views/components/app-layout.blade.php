@@ -47,27 +47,6 @@
                     </li>
                     <li class="mb-2">
                         <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
-                                onclick="toggleDropdown('inquilinosDropdown')">
-                            Inquilinos
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform transform"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <ul class="hidden pl-4 mt-2 space-y-1" id="inquilinosDropdown">
-                            <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Crear
-                                    Inquilino</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Ver
-                                    Inquilinos</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="mb-2">
-                        <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
                                 onclick="toggleDropdown('propiedadesDropdown')">
                             Propiedades
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform transform"
@@ -111,6 +90,62 @@
                                     class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
                                 >
                                     Ver Propietarios
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-2">
+                        <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
+                                onclick="toggleDropdown('inquilinosDropdown')">
+                            Inquilinos
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform transform"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <ul class="hidden pl-4 mt-2 space-y-1" id="inquilinosDropdown">
+                            <li>
+                                <a href="{{ route('tenants.createForm') }}"
+                                   class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Crear Inquilino
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('tenants.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Ver Inquilinos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-2">
+                        <button class="flex items-center justify-between w-full p-2 text-sm font-semibold text-left text-gray-700 transition duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-200"
+                                onclick="toggleDropdown('garantesDropdown')">
+                            Garantes
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform transform"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <ul class="hidden pl-4 mt-2 space-y-1" id="garantesDropdown">
+                            <li>
+                                <a href="{{ route('guarantors.createForm') }}"
+                                   class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Crear Garante
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('guarantors.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Ver Garantes
                                 </a>
                             </li>
                         </ul>

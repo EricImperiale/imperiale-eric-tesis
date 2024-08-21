@@ -115,7 +115,7 @@ class TenantController extends Controller
     public function delete(string $id)
     {
         return view('tenants.confirm-delete', [
-            'tenant' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+            'model' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
         ]);
     }
 
