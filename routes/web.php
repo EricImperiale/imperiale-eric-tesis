@@ -60,9 +60,13 @@ Route::get('/inquilinos/{id}/editar', [TenantController::class, 'edit'])
 Route::post('/inquilinos/{id}/editar', [TenantController::class, 'processUpdate'])
     ->name('tenants.processUpdate')
     ->middleware(VerifyAuth::class);
-Route::get('/inquilinos/{id}/eliminar', [TenantController::class, 'delete'])
-    ->name('tenants.deleteForm')
+Route::get('/inquilinos/{id}/confirmar-eliminacion', [TenantController::class, 'delete'])
+    ->name('tenants.confirmDelete')
     ->middleware(VerifyAuth::class);
+Route::POST('/inquilinos/{id}/eliminar', [TenantController::class, 'confirmDelete'])
+    ->name('tenants.processDelete')
+    ->middleware(VerifyAuth::class);
+
 
 Route::get('propiedades', [PropertyController::class, 'index'])
     ->name('properties.index')

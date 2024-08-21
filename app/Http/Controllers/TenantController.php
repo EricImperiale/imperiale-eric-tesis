@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Owner\ConfirmDeleteRequest;
 use App\Http\Requests\Tenant\CreateRequest;
 use App\Http\Requests\Tenant\EditRequest;
 use App\Models\PhonePrefix;
@@ -111,8 +112,44 @@ class TenantController extends Controller
         }
     }
 
-    public function delete()
+    public function delete(string $id)
     {
-        return view();
+        return view('tenants.confirm-delete', [
+            'tenant' => $this->repo->findOrFailWithRelations($id, ['phonePrefixes']),
+        ]);
+    }
+
+    public function confirmDelete(ConfirmDeleteRequest $request, string $id)
+    {
+        $tenant = $this->repo->findOrFail($id);
+
+        if ($request->user()->cannot('delete', $tenant)) {
+            return redirect()
+                ->route('tenants.index')
+                ->with('message', 'Solo el administrador puede eliminar un Inquilino.')
+                ->with('type', 'error');
+        }
+
+        if ((int) $request->input('dni') !== $tenant->dni) {
+            return back()
+                ->with('message', 'El DNI no coincide con el Inquilino que querés eliminar.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+
+        try {
+            $this->repo->delete($id);
+
+            return redirect()
+                ->route('tenants.index')
+                ->withInput()
+                ->with('message', 'El Inquilino fue eliminado con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('tenants.index')
+                ->with('message', 'Ocurrió un error al eliminar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+                ->with('type', 'error');
+        }
     }
 }

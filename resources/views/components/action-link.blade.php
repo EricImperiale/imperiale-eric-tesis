@@ -5,7 +5,7 @@ switch ($action) {
         break;
 
     case 'delete':
-        $routeName = $model . '.deleteForm';
+        $routeName = $model . '.confirmDelete';
         break;
     default:
         $routeName = '#';
@@ -14,7 +14,6 @@ switch ($action) {
 
 $href = $routeName === '#' ? '#' : route($routeName, $modelId);
 ?>
-
 
 <a
     href="{{ $href }}"

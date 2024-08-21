@@ -45,7 +45,7 @@ class TenantPolicy
      */
     public function delete(User $user, Tenant $tenant): bool
     {
-        //
+        return $user->has_permission;
     }
 
     /**
