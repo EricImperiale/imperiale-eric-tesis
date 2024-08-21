@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- *
+ * 
  *
  * @property int $user_id
  * @property string|null $full_name
@@ -34,6 +34,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserId($value)
+ * @property int $is_employee
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsEmployee($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

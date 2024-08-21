@@ -1,6 +1,4 @@
-<x-app-layout
-    title="Iniciar Sesión"
->
+<x-app-layout title="Iniciar Sesión">
     <section class="w-full max-w-md p-6 bg-white rounded-md shadow-md">
         <header class="mb-3 text-3xl text-center">
             <h2 class="font-bold">Iniciar Sesión</h2>

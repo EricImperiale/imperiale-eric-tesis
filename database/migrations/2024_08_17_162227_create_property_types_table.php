@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
-            $table->tinyInteger('phone_prefix_fk_id');
-
-            $table->foreign('phone_prefix_fk_id')
-                ->references('phone_prefix_id')
-                ->on('phone_prefixes');
+        Schema::create('property_types', function (Blueprint $table) {
+            $table->tinyIncrements('property_type_id');
+            $table->char('name', 50);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('property_types');
     }
 };

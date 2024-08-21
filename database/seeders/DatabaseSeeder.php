@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(PhonePrefixSeeder::class);
         $this->call(OwnerSeeder::class);
+        $this->call(GuarantorSeeder::class);
+        $this->call(TenantSeeder::class);
+
+        $this->call(PropertyTypeSeeder::class);
+        $this->call(PropertySeeder::class);
     }
 }

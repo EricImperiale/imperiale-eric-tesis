@@ -1,7 +1,4 @@
-<x-app-layout
-    title="Confirmar Eliminación de {{ $model->fullName }}"
-    class=""
->
+<x-app-layout title="Confirmar Eliminación de {{ $model->fullName }}">
     <div class="container mx-auto">
         <header class="mb-4">
             <h2 class="text-2xl font-bold text-gray-800">Confirmar Eliminación del Propietario</h2>

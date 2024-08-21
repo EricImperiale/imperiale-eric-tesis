@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
-            $table->tinyInteger('phone_prefix_fk_id');
+        Schema::table('properties', function (Blueprint $table) {
+            $table->tinyInteger('property_type_fk_id');
 
-            $table->foreign('phone_prefix_fk_id')
-                ->references('phone_prefix_id')
-                ->on('phone_prefixes');
+            $table->foreign('property_type_fk_id')
+                ->references('property_type_id')
+                ->on('property_types');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
+        Schema::table('properties', function (Blueprint $table) {
             //
         });
     }

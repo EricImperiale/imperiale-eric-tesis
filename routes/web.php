@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginFormController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Middleware\VerifyAuth;
-use App\Http\Middleware\ConfirmDelete;
+use App\Http\Controllers\TenantController;
+use App\Http\Controllers\GuarantorController;
+use App\Http\Controllers\PropertyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +43,29 @@ Route::get('/propietarios/{id}/confirmar-eliminacion', [OwnerController::class, 
     ->middleware(VerifyAuth::class);
 Route::post('/propietarios/{id}/eliminar', [OwnerController::class, 'confirmDelete'])
     ->name('owners.processDelete')
+    ->middleware(VerifyAuth::class);
+
+Route::get('/inquilinos', [TenantController::class, 'index'])
+    ->name('tenants.index')
+    ->middleware(VerifyAuth::class);
+Route::get('/inquilinos/crear', [TenantController::class, 'create'])
+    ->name('tenants.createForm')
+    ->middleware(VerifyAuth::class);
+Route::post('/inquilinos/crear', [TenantController::class, 'processCreate'])
+    ->name('tenants.processCreate')
+    ->middleware(VerifyAuth::class);
+Route::get('/inquilinos/{id}/editar', [TenantController::class, 'edit'])
+    ->name('tenants.editForm')
+    ->middleware(VerifyAuth::class);
+Route::post('/inquilinos/{id}/editar', [TenantController::class, 'processUpdate'])
+    ->name('tenants.processUpdate')
+    ->middleware(VerifyAuth::class);
+Route::get('/inquilinos/{id}/eliminar', [TenantController::class, 'delete'])
+    ->name('tenants.deleteForm')
+    ->middleware(VerifyAuth::class);
+
+Route::get('propiedades', [PropertyController::class, 'index'])
+    ->name('properties.index')
     ->middleware(VerifyAuth::class);
 
 

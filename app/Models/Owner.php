@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- *
+ * 
  *
  * @property int $owner_id
  * @property string $name
@@ -56,6 +56,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  * @property int $zip_code
  * @property-read \App\Models\PhonePrefix $phonePrefixes
  * @method static \Illuminate\Database\Eloquent\Builder|Owner whereZipCode($value)
+ * @property int $id
+ * @property-read mixed $formatted_phone_number
+ * @property-read mixed $full_address
+ * @property-read mixed $full_name
+ * @method static \Illuminate\Database\Eloquent\Builder|Owner whereId($value)
  * @mixin \Eloquent
  */
 class Owner extends Model
@@ -99,7 +104,7 @@ class Owner extends Model
         );
     }
 
-    protected function FormattedPhoneNumber(): Attribute
+    protected function formattedPhoneNumber(): Attribute
     {
         return Attribute::make(
             get: function () {

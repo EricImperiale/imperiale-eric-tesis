@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
+        Schema::table('tenants', function (Blueprint $table) {
             $table->tinyInteger('phone_prefix_fk_id');
 
             $table->foreign('phone_prefix_fk_id')
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('owners', function (Blueprint $table) {
+        Schema::table('tenants', function (Blueprint $table) {
             //
         });
     }

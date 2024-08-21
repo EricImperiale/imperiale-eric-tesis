@@ -1,6 +1,6 @@
-@php
+<?php
 /** @var \App\Models\PhonePrefix[]|\Illuminate\Database\Eloquent\Collection $phonePrefixes */
-@endphp
+?>
 
 <x-app-layout
     title="Crear Propietario"
