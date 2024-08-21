@@ -149,6 +149,13 @@ class OwnerController extends Controller
                 ->withInput();
         }
 
+        if ($owner->properties()->exists()) {
+            return back()
+                ->with('message', 'No se puede eliminar el Propietario porque tiene propiedades asociadas.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+
         try {
             $this->repo->delete($id);
 

@@ -117,22 +117,29 @@ class GuarantorController extends Controller
 
     public function confirmDelete(ConfirmDeleteRequest $request, string $id)
     {
-        $tenant = $this->repo->findOrFail($id);
+        $guarantor = $this->repo->findOrFail($id);
 
-        if ($request->user()->cannot('delete', $tenant)) {
+        if ($request->user()->cannot('delete', $guarantor)) {
             return redirect()
                 ->route('guarantors.index')
                 ->with('message', 'Solo el administrador puede eliminar un Garante.')
                 ->with('type', 'error');
         }
 
-        if ((int) $request->input('dni') !== $tenant->dni) {
+        if ((int) $request->input('dni') !== $guarantor->dni) {
             return back()
                 ->with('message', 'El DNI no coincide con el Garante que querés eliminar.')
                 ->with('type', 'error')
                 ->withInput();
         }
 
+        if ($guarantor->properties()->exists()) {
+            return back()
+                ->with('message', 'No se puede eliminar el Garante porque tiene propiedades asociadas.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+        
         try {
             $this->repo->delete($id);
 

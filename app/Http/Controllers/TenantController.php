@@ -137,6 +137,13 @@ class TenantController extends Controller
                 ->withInput();
         }
 
+        if ($tenant->properties()->exists()) {
+            return back()
+                ->with('message', 'No se puede eliminar el Garante porque tiene propiedades asociadas.')
+                ->with('type', 'error')
+                ->withInput();
+        }
+
         try {
             $this->repo->delete($id);
 

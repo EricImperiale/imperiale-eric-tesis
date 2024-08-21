@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- * 
+ *
  *
  * @property int $owner_id
  * @property string $name
