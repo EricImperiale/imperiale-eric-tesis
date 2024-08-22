@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
+use App\Models\PhonePrefix;
 use App\Models\Property;
+use App\Models\PropertyType;
 use App\Repositories\BaseEloquentRepository;
 use Illuminate\Http\Request;
 
@@ -34,7 +37,11 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        return view('properties.create-form', [
+           'owners' => Owner::all(['id', 'name', 'last_name', 'dni']),
+           'phonePrefixes' => PhonePrefix::all(),
+           'propertyTypes' => PropertyType::all(),
+        ]);
     }
 
     /**

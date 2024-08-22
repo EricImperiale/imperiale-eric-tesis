@@ -17,6 +17,7 @@
             :$phonePrefixes
             action="create"
             route="tenants.processCreate"
+            formType="actors"
         />
     </div>
 </x-app-layout>

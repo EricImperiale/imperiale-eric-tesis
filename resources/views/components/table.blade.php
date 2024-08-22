@@ -35,6 +35,8 @@
                <tr class="hover:bg-[#f3f4f6]">
                    <td class="px-4 py-2">{{ $data->fullAddress }}</td>
                    <td class="px-4 py-2">Piso {{ $data->floor }} - {{ $data->apartment_number }}</td>
+                   <td class="px-4 py-2">${{ $data->rental_price }}</td>
+                   <td class="px-4 py-2">${{ $data->expenses }}</td>
                </tr>
            @endif
         @endforeach

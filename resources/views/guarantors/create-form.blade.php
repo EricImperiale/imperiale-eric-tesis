@@ -17,6 +17,7 @@
             :$phonePrefixes
             action="create"
             route="guarantors.processCreate"
+            formType="actors"
         />
     </div>
 </x-app-layout>

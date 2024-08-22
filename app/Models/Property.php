@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $address
@@ -82,12 +82,13 @@ class Property extends Model
         'bathrooms',
     ];
 
+    // TODO: Hay manera de no hace tantro codigo.
     protected function fullAddress(): Attribute
     {
         return Attribute::make(
             get: function () {
                 if ($this->propertyType->property_type_id !== 1) {
-                    return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' .  $this->apartment_number . ', ' . $this->neighborhood . ', ' . $this->province;
+                    return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->province;
                 }
 
                 return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->province . ', ' . $this->neighborhood;
@@ -95,11 +96,11 @@ class Property extends Model
         );
     }
 
-    /* protected function floor(): Attribute
+    protected function floor(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                return $this->floor ? $this->floor : 'N/A'; // Devolver 'N/A' si no hay valor para el piso
+            get: function (string $value) {
+                return $value ?? 'N/A';
             }
         );
     }
@@ -107,11 +108,29 @@ class Property extends Model
     protected function apartmentNumber(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                return $this->apartment_number ? $this->apartment_number : '0'; // Devolver '0' si no hay valor para el número del departamento
+            get: function (string $value) {
+                return $value ?? '0';
             }
         );
-    } */
+    }
+
+    protected function rentalPrice(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value) {
+                return number_format($value, '0', '.');
+            }
+        );
+    }
+
+    protected function expenses(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value) {
+                return $value ? number_format($value, '0', '.') : 'N/A';
+            }
+        );
+    }
 
     public function owner(): BelongsTo
     {

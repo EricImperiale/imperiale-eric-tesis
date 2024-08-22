@@ -92,5 +92,11 @@ Route::post('/garantes/{id}/eliminar', [GuarantorController::class, 'confirmDele
 Route::get('propiedades', [PropertyController::class, 'index'])
     ->name('properties.index')
     ->middleware(VerifyAuth::class);
+Route::get('propiedades/crear', [PropertyController::class, 'create'])
+    ->name('properties.createForm')
+    ->middleware(VerifyAuth::class);
+Route::post('propiedades/crear', [PropertyController::class, 'processCreate'])
+    ->name('properties.processCreate')
+    ->middleware(VerifyAuth::class);
 
 

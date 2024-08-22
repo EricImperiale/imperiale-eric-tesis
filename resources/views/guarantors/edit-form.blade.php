@@ -19,6 +19,7 @@
             :$phonePrefixes
             action="edit"
             route="guarantors.processUpdate"
+            formType="actors"
         />
     </div>
 </x-app-layout>

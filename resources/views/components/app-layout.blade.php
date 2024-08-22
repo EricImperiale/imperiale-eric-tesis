@@ -57,12 +57,20 @@
                         </button>
                         <ul class="hidden pl-4 mt-2 space-y-1" id="propiedadesDropdown">
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Crear
-                                    Propiedad</a>
+                                <a
+                                    href="{{ route('properties.createForm') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Crear Propiedades
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Ver
-                                    Propiedades</a>
+                                <a
+                                    href="{{ route('properties.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200"
+                                >
+                                    Ver Propiedades
+                                </a>
                             </li>
                         </ul>
                     </li>

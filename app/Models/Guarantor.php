@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -52,6 +52,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  * @method static \Illuminate\Database\Eloquent\Builder|Guarantor whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Guarantor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Guarantor whereZipCode($value)
+ * @property-read mixed $formatted_phone_number
+ * @property-read mixed $full_address
+ * @property-read mixed $full_name
  * @mixin \Eloquent
  */
 class Guarantor extends Model
