@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Property\CreateRequest;
+use App\Http\Requests\Property\EditRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
 use App\Models\Property;
@@ -71,15 +72,19 @@ class PropertyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('properties.edit-form', [
+            'property' => $this->repo->findOrFailWithRelations($id, ['owner', 'propertyType']),
+            'owners' => Owner::all(['id', 'name', 'last_name', 'dni']),
+            'propertyTypes' => PropertyType::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function processUpdate(EditRequest $request, string $id)
     {
-        //
+
     }
 
     /**

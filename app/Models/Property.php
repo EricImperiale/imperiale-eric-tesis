@@ -98,6 +98,15 @@ class Property extends Model
         );
     }
 
+    protected function caracteristics(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->total_area . 'm2' . ' - ' . $this->rooms . ' ambientes';
+            }
+        );
+    }
+
     protected function floor(): Attribute
     {
         return Attribute::make(
@@ -111,7 +120,7 @@ class Property extends Model
     {
         return Attribute::make(
             get: function (string $value) {
-                return $value ?? '0';
+                return $value ?? 'N/A';
             }
         );
     }
@@ -120,7 +129,20 @@ class Property extends Model
     {
         return Attribute::make(
             get: function (string $value) {
-                return number_format($value, '0', '.');
+                return '$' . number_format($value, 3);
+            }
+        );
+    }
+
+    protected function expenses(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if ($this->propertyType->property_type_id !== 1) {
+                    return '$' . number_format($value, 0, '.', ',');
+                }
+
+                return 'N/A';
             }
         );
     }

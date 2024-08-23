@@ -98,5 +98,11 @@ Route::get('propiedades/crear', [PropertyController::class, 'create'])
 Route::post('propiedades/crear', [PropertyController::class, 'processCreate'])
     ->name('properties.processCreate')
     ->middleware(VerifyAuth::class);
+Route::get('propiedades/{id}/editar', [PropertyController::class, 'edit'])
+    ->name('properties.editForm')
+    ->middleware(VerifyAuth::class);
+Route::post('propiedades/{id}/editar', [PropertyController::class, 'processUpdate'])
+    ->name('properties.processUpdate')
+    ->middleware(VerifyAuth::class);
 
 
