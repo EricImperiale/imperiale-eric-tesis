@@ -16,16 +16,18 @@ class UniqueAddressIfNotApartment implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // TODO: Propenso a inyección SQL?
-        $property_type_fk_id = request()->input('property_type_fk_id');
-        $property_id = request()->input('property_id');
+        $propertyFkId = request()->input('property_type_fk_id');
+        $propertyId = request()->input('property_id');
+        $addressNumber = request()->input('address_number');
 
-        if ($property_type_fk_id == 2 || $property_type_fk_id == 3) {
+        if ($propertyFkId == 2 || $propertyFkId == 3) {
             return;
         }
 
         $exists = DB::table('properties')
             ->where('address', $value)
-            ->where('id', '<>', $property_id)
+            ->where('address_number', $addressNumber)
+            ->where('id', '<>', $propertyId)
             ->exists();
 
         if ($exists) {

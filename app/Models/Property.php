@@ -116,20 +116,11 @@ class Property extends Model
         );
     }
 
-    protected function rentalPrice(): Attribute
+    protected function rentalPrice(): ?Attribute
     {
         return Attribute::make(
             get: function (string $value) {
                 return number_format($value, '0', '.');
-            }
-        );
-    }
-
-    protected function expenses(): Attribute
-    {
-        return Attribute::make(
-            get: function (string $value) {
-                return $value ? number_format($value, '0', '.') : 'N/A';
             }
         );
     }

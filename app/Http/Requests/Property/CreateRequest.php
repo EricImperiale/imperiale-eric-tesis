@@ -23,6 +23,8 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
+        $apartmentNumber = $this->request->get('apartment_number');
+
         return [
             'address' => [
                 'required',
@@ -60,6 +62,7 @@ class CreateRequest extends FormRequest
                 'max:255',
                 'required_if:property_type_fk_id,2',
                 'required_if:property_type_fk_id,3',
+                'unique:properties,apartment_number, ' . $apartmentNumber,
             ],
 
             'is_for_professional_use' => 'nullable|boolean',
@@ -118,6 +121,7 @@ class CreateRequest extends FormRequest
             'apartment_number.required_if' => 'El número de departamento es obligatorio para el departamento o PH.',
             'apartment_number.string' => 'El número de departamento debe ser una cadena de texto.',
             'apartment_number.max' => 'El número de departamento no puede tener más de 255 caracteres.',
+            'apartment_number.unique' => 'El número de departamento ya está registrado.',
 
             'is_for_professional_use.boolean' => 'El uso profesional debe ser verdadero o falso.',
 
