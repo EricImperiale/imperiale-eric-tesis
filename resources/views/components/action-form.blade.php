@@ -2,6 +2,7 @@
     <form
         action="{{ route($route, $modelId ? ['id' => $modelId] : []) }}"
         method="post"
+        enctype="multipart/form-data"
         class="bg-white p-6 border border-gray-300 rounded-lg shadow-md"
     >
         @csrf
@@ -454,6 +455,20 @@
                         </select>
 
                         @error('property_type_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700">Cargar una Imagen</label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+
+                        @error('image')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

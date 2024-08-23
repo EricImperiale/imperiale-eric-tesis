@@ -82,6 +82,8 @@ class Property extends Model
         'bathrooms',
         'property_type_fk_id',
         'owner_fk_id',
+        'image',
+        'image_alt',
     ];
 
     // TODO: Hay manera de no hace tantro codigo.

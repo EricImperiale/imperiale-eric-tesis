@@ -50,6 +50,10 @@ class PropertyController extends Controller
     public function processCreate(CreateRequest $request)
     {
         $data = $request->except(['_token']);
+        
+        if ($request->hasFile('image')) {
+            $request->file('image')->store('images', 'public');
+        }
 
         try {
             $this->repo->create($data);

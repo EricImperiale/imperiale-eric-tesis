@@ -53,8 +53,8 @@ class PropertySeeder extends Seeder
                 'rooms' => 5,
                 'bedrooms' => 3,
                 'bathrooms' => 2,
-                'owner_fk_id' => 2, // ID del propietario
-                'property_type_fk_id' => 2 // ID del tipo de propiedad
+                'owner_fk_id' => 2,
+                'property_type_fk_id' => 2
             ],
             [
                 'address' => 'Avenida de Mayo',

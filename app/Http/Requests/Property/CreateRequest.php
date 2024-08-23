@@ -72,6 +72,8 @@ class CreateRequest extends FormRequest
 
             'owner_fk_id' => 'required|exists:owners,id',
             'property_type_fk_id' => 'required|exists:property_types,property_type_id',
+
+            'image' => 'nullable|image|max:10240|mimes:jpg,jpeg,png',
         ];
     }
 
@@ -139,6 +141,8 @@ class CreateRequest extends FormRequest
 
             'property_type_fk_id.required' => 'El tipo de propiedad es obligatorio.',
             'property_type_fk_id.exists' => 'El tipo de propiedad seleccionado no existe.',
+
+            'image.mimes' => 'La imagen debe ser se un formato permitido (.jpg, .jpeg, .png).',
         ];
     }
 }

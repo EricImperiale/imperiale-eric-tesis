@@ -30,6 +30,9 @@ return new class extends Migration
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bedrooms');
             $table->unsignedInteger('bathrooms');
+            // TODO: SACAR EL NULLABLE.
+            $table->string('image', 255)->nullable();
+            $table->string('image_alt', 255)->nullable();
 
             $table->timestamps();
         });
