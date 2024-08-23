@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $id
  * @property string $address
- * @property int $address_number
+ * @property int state
  * @property string|null $city
  * @property string $province
  * @property string $neighborhood
@@ -90,10 +90,10 @@ class Property extends Model
         return Attribute::make(
             get: function () {
                 if ($this->propertyType->property_type_id !== 1) {
-                    return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->province;
+                    return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->state;
                 }
 
-                return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->province . ', ' . $this->neighborhood;
+                return $this->propertyType->name . ' en ' . $this->address . ' ' . $this->address_number . ', ' . $this->neighborhood . ', ' . $this->state;
             }
         );
     }
@@ -110,7 +110,7 @@ class Property extends Model
     protected function floor(): Attribute
     {
         return Attribute::make(
-            get: function (string $value) {
+            get: function (?string $value = null) {
                 return $value ?? 'N/A';
             }
         );
@@ -119,17 +119,8 @@ class Property extends Model
     protected function apartmentNumber(): Attribute
     {
         return Attribute::make(
-            get: function (string $value) {
+            get: function (?string $value = null) {
                 return $value ?? 'N/A';
-            }
-        );
-    }
-
-    protected function rentalPrice(): ?Attribute
-    {
-        return Attribute::make(
-            get: function (string $value) {
-                return '$' . number_format($value, 3);
             }
         );
     }
@@ -139,7 +130,7 @@ class Property extends Model
         return Attribute::make(
             get: function ($value) {
                 if ($this->propertyType->property_type_id !== 1) {
-                    return '$' . number_format($value, 0, '.', ',');
+                    return '$' . $value;
                 }
 
                 return 'N/A';

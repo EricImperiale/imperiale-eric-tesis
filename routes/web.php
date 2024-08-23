@@ -104,5 +104,10 @@ Route::get('propiedades/{id}/editar', [PropertyController::class, 'edit'])
 Route::post('propiedades/{id}/editar', [PropertyController::class, 'processUpdate'])
     ->name('properties.processUpdate')
     ->middleware(VerifyAuth::class);
-
+Route::get('/propiedades/{id}/confirmar-eliminacion', [PropertyController::class, 'delete'])
+    ->name('properties.confirmDelete')
+    ->middleware(VerifyAuth::class);
+Route::post('/propiedades/{id}/confirmar-eliminacion', [PropertyController::class, 'processDelete'])
+    ->name('properties.processDelete')
+    ->middleware(VerifyAuth::class);
 

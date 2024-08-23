@@ -1,25 +1,30 @@
 <?php
     $title = '';
+    $dataToBeEntered = '';
 
     switch ($modelToBeDeleted) {
         case 'owners':
-            $title = 'Propietario';
+            $title = 'del Propietario';
             break;
 
         case 'tenants':
-            $title = 'Inquilino';
+            $title = 'del Inquilino';
             break;
 
         case 'guarantors':
-            $title = 'Garante';
+            $title = 'del Garante';
+            break;
+
+        case 'properties':
+            $title = 'de la Propiedad';
+            $dataToBeEntered = 'la Dirección completa';
             break;
     }
 ?>
-
 <div class="container mx-auto">
     <header class="mb-4">
-        <h2 class="text-2xl font-bold text-gray-800">Confirmar Eliminación del {{ $title }}</h2>
-        <p class="text-gray-600">Estás a punto de eliminar al siguiente {{ $title }}. Por favor, confirma la acción ingresando el DNI.</p>
+        <h2 class="text-2xl font-bold text-gray-800">Confirmar Eliminación {{ $title }}</h2>
+        <p class="text-gray-600">Estás a punto de eliminar al siguiente {{ $title }}. Por favor, confirma la acción ingresando {{ $dataToBeEntered ?? 'el DNI' }}.</p>
 
         <x-auth-message />
     </header>
@@ -27,9 +32,14 @@
     <div class="bg-white p-6 border border-gray-300 rounded-lg shadow-md">
         <h3 class="text-lg font-medium text-gray-700 mb-4">Detalles del {{ $title }}</h3>
         <ul class="mb-6 text-gray-600">
-            <li><strong>Nombre Completo:</strong> {{ $model->fullName }}</li>
-            <li><strong>DNI:</strong> {{ $model->dni }}</li>
-            <li><strong>Email:</strong> {{ $model->email }}</li>
+            @if($modelToBeDeleted !== 'properties')
+                <li><strong>Nombre Completo:</strong> {{ $model->fullName }}</li>
+                <li><strong>DNI:</strong> {{ $model->dni }}</li>
+                <li><strong>Email:</strong> {{ $model->email }}</li>
+            @else
+                <li><strong>Dirección completa:</strong> {{ $model->address }} {{ $model->address_number }}</li>
+                <li><strong>Dueño/a:</strong> {{ $model->owner->fullName }}</li>
+            @endif
         </ul>
 
         <form
@@ -38,21 +48,39 @@
             class="space-y-4"
         >
             @csrf
-            <div class="flex flex-col">
-                <label for="dni" class="text-sm font-medium text-gray-700">Confirma el DNI del {{ $title }}:</label>
-                <input
-                    type="text"
-                    id="dni"
-                    name="dni"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    maxlength="8"
-                    value="{{ old('dni') }}"
-                >
 
-                @error('dni')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+            @if($modelToBeDeleted !== 'properties')
+                <div class="flex flex-col">
+                    <label for="dni" class="text-sm font-medium text-gray-700">Confirma el DNI del {{ $title }}:</label>
+                    <input
+                        type="text"
+                        id="dni"
+                        name="dni"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        maxlength="8"
+                        value="{{ old('dni') }}"
+                    >
+
+                    @error('dni')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+            @else
+                <div class="flex flex-col">
+                    <label for="full_address" class="text-sm font-medium text-gray-700">Confirma la dirección {{ $title }}:</label>
+                    <input
+                        type="text"
+                        id="full_address"
+                        name="full_address"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('full_address') }}"
+                    >
+
+                    @error('full_address')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
 
             <div class="flex justify-end space-x-2">
                 <a

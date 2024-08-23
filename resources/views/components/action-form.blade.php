@@ -1,5 +1,4 @@
 <div>
-    {{ $errors }}
     <form
         action="{{ route($route, $modelId ? ['id' => $modelId] : []) }}"
         method="post"

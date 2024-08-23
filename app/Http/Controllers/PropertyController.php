@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Property\ConfirmDeleteRequest;
 use App\Http\Requests\Property\CreateRequest;
 use App\Http\Requests\Property\EditRequest;
 use App\Models\Owner;
@@ -106,16 +107,57 @@ class PropertyController extends Controller
             return redirect()
                 ->route('properties.index')
                 ->with('message', 'Ocurrió un error al editar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . htmlspecialchars($e->getMessage()))
-                ->with('type', 'error')
-                ->withInput();
+                ->with('type', 'error');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+   public function delete(string $id)
+   {
+        $property = $this->repo->findOrFail($id);
+
+        return view('properties.confirm-delete', [
+            'property' => $property,
+            'titleIsNotFromActors' => true,
+            'title' => $property->fullAddress,
+        ]);
+   }
+
+   public function processDelete(ConfirmDeleteRequest $request, string $id)
+   {
+       $property = $this->repo->findOrFail($id);
+
+       if ($request->user()->cannot('delete', $property)) {
+           return redirect()
+               ->route('properties.index')
+               ->with('message', 'Solo el administrador puede eliminar una Propiedad.')
+               ->with('type', 'error');
+       }
+
+
+
+       $fullAddress = $property->address . ' ' . $property->address_number;
+       if ($request->input('full_address') !== $fullAddress) {
+           return back()
+               ->with('message', 'La dirección no coincide con la propiedades que querés eliminar.')
+               ->with('type', 'error')
+               ->withInput();
+       }
+
+       // TODO: Validar si tiene contrato activo.
+
+       try {
+           $this->repo->delete($id);
+
+           return redirect()
+               ->route('properties.index')
+               ->withInput()
+               ->with('message', 'La propiedad fue eliminada con éxito.')
+               ->with('type', 'success');
+       } catch(\Exception $e) {
+           return redirect()
+               ->route('properties.index')
+               ->with('message', 'Ocurrió un error al eliminar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . $e->getMessage())
+               ->with('type', 'error');
+       }
+   }
 }
