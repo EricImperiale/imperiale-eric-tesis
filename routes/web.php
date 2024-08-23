@@ -8,9 +8,6 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\PropertyController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/iniciar-sesion', [LoginFormController::class, 'index'])
     ->name('auth.loginForm');
