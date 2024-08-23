@@ -305,7 +305,7 @@
                             id="rental_price"
                             name="rental_price"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            value="{{ old('total_area') ?? $model?->rental_price }}"
+                            value="{{ old('rental_price') ?? $model?->rental_price }}"
                         >
 
                         @error('rental_price')

@@ -84,7 +84,31 @@ class PropertyController extends Controller
      */
     public function processUpdate(EditRequest $request, string $id)
     {
+        $data = $request->except(['_token']);
 
+        try {
+            $property = $this->repo->update($id, $data);
+
+            if ($request->user()->cannot('update', $property)) {
+                return redirect()
+                    ->route('properties.index')
+                    ->with('message', 'Solo el administrador puede editar una Propiedad.')
+                    ->with('type', 'error');
+            }
+
+            $this->repo->update($id, $data);
+
+            return redirect()
+                ->route('properties.index')
+                ->with('message', 'La Propiedad fue editada con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('properties.index')
+                ->with('message', 'Ocurrió un error al editar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . htmlspecialchars($e->getMessage()))
+                ->with('type', 'error')
+                ->withInput();
+        }
     }
 
     /**

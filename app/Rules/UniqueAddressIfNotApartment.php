@@ -17,7 +17,7 @@ class UniqueAddressIfNotApartment implements ValidationRule
     {
         // TODO: Propenso a inyección SQL?
         $propertyFkId = request()->input('property_type_fk_id');
-        $propertyId = request()->input('property_id');
+        $propertyId = request()->route('id');
         $addressNumber = request()->input('address_number');
 
         if ($propertyFkId == 2 || $propertyFkId == 3) {
