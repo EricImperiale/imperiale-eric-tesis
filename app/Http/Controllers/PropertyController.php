@@ -160,8 +160,6 @@ class PropertyController extends Controller
                ->with('type', 'error');
        }
 
-
-
        $fullAddress = $property->address . ' ' . $property->address_number;
        if ($request->input('full_address') !== $fullAddress) {
            return back()
@@ -171,6 +169,10 @@ class PropertyController extends Controller
        }
 
        // TODO: Validar si tiene contrato activo.
+
+       if ($property->image !== null) {
+           Storage::delete($property->image);
+       }
 
        try {
            $this->repo->delete($id);

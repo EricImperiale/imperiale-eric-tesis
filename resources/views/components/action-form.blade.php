@@ -479,8 +479,6 @@
                             />
                         @endif
                     </div>
-
-
             @endif
         </div>
 
