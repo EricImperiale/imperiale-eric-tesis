@@ -10,7 +10,8 @@ use App\Models\PhonePrefix;
 use App\Models\Property;
 use App\Models\PropertyType;
 use App\Repositories\BaseEloquentRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Image;
 
 class PropertyController extends Controller
 {
@@ -50,9 +51,19 @@ class PropertyController extends Controller
     public function processCreate(CreateRequest $request)
     {
         $data = $request->except(['_token']);
-        
+
         if ($request->hasFile('image')) {
-            $request->file('image')->store('images', 'public');
+            try {
+                $imagePath = $request->file('image')->store('images', 'public');
+
+                $data['image'] = $imagePath;
+            } catch (\Exception $e) {
+                return redirect()
+                    ->route('properties.index')
+                    ->with('message', 'Ocurrió un error al procesar la imagen. ' . htmlspecialchars($e->getMessage()))
+                    ->with('type', 'error')
+                    ->withInput();
+            }
         }
 
         try {
@@ -63,10 +74,10 @@ class PropertyController extends Controller
                 ->withInput()
                 ->with('message', 'La Propiedad fue creada con éxito.')
                 ->with('type', 'success');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()
                 ->route('properties.index')
-                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . htmlspecialchars($e->getMessage()))
+                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros. ' . htmlspecialchars($e->getMessage()))
                 ->with('type', 'error')
                 ->withInput();
         }
@@ -90,6 +101,18 @@ class PropertyController extends Controller
     public function processUpdate(EditRequest $request, string $id)
     {
         $data = $request->except(['_token']);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+
+            $data['image'] = $imagePath;
+
+            $oldImage = $this->repo->findOrFail($id)->image;
+
+            if ($oldImage !== null) {
+                Storage::delete($oldImage);
+            }
+        }
 
         try {
             $property = $this->repo->update($id, $data);

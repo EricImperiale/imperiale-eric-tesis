@@ -143,6 +143,7 @@ class CreateRequest extends FormRequest
             'property_type_fk_id.exists' => 'El tipo de propiedad seleccionado no existe.',
 
             'image.mimes' => 'La imagen debe ser se un formato permitido (.jpg, .jpeg, .png).',
+            'image.max' => 'La imagen ingresada es demasiado pesada (10mb).',
         ];
     }
 }

@@ -19,7 +19,7 @@
             :$propertyTypes
             :$owners
             formType="properties"
-            action="create"
+            action="edit"
             route="properties.processUpdate"
         />
     </div>

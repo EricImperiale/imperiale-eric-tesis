@@ -471,7 +471,16 @@
                         @error('image')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
+
+                        @if($formType == 'properties' && ($action == 'edit' || $action == 'delete'))
+                            <x-image
+                                :model="$model"
+                                image_alt="No hay una ninguna imagen para la propiedad."
+                            />
+                        @endif
                     </div>
+
+
             @endif
         </div>
 
