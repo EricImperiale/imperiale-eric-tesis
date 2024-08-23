@@ -31,17 +31,20 @@
 
     <div class="bg-white p-6 border border-gray-300 rounded-lg shadow-md">
         <h3 class="text-lg font-medium text-gray-700 mb-4">Detalles del {{ $title }}</h3>
-        <ul class="mb-6 text-gray-600">
+        <ul class="mb-4 text-gray-600">
             @if($modelToBeDeleted !== 'properties')
                 <li><strong>Nombre Completo:</strong> {{ $model->fullName }}</li>
                 <li><strong>DNI:</strong> {{ $model->dni }}</li>
                 <li><strong>Email:</strong> {{ $model->email }}</li>
             @else
                 <li><strong>Dirección completa:</strong> {{ $model->address }} {{ $model->address_number }}</li>
-                <li><strong>Dueño/a:</strong> {{ $model->owner->fullName }}</li>
+                <li><strong>Dueño/a:</strong> {{ $model->owner->fullName }} con DNI: {{ $model->owner->dni }}</li>
             @endif
         </ul>
 
+        @if($model->property_type_fk_id !== 1)
+            <p class="mt-0 text-gray-600">Está propiedad es un <b>{{ $model->propertyType->name }} en el piso {{ $model->floor }} {{ $model->apartment_number }}</b>.</p>
+        @endif
         <form
             action="{{ route($route, ['id' => $model->id]) }}"
             method="post"
