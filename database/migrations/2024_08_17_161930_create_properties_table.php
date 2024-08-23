@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('address', 125);
             $table->unsignedInteger('address_number');
             $table->string('city', 255)->nullable();
-            $table->string('province', 255);
+            $table->string('state', 255);
             $table->string('neighborhood', 255);
-            $table->unsignedInteger('postal_code');
+            $table->unsignedInteger('zip_code');
             $table->unsignedInteger('total_area');
             $table->unsignedInteger('covered_area');
             $table->text('description')->nullable('The property has no description.');
@@ -30,6 +30,8 @@ return new class extends Migration
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bedrooms');
             $table->unsignedInteger('bathrooms');
+
+            $table->timestamps();
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Property\CreateRequest;
 use App\Models\Owner;
 use App\Models\PhonePrefix;
 use App\Models\Property;
@@ -44,20 +45,25 @@ class PropertyController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function processCreate(CreateRequest $request)
     {
-        //
-    }
+        $data = $request->except(['_token']);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        try {
+            $this->repo->create($data);
+
+            return redirect()
+                ->route('properties.index')
+                ->withInput()
+                ->with('message', 'La Propiedad fue creada con éxito.')
+                ->with('type', 'success');
+        } catch(\Exception $e) {
+            return redirect()
+                ->route('properties.index')
+                ->with('message', 'Ocurrió un error al grabar la información. Por favor, probá de nuevo en un rato. Si el problema persiste, comunicate con nosotros.' . htmlspecialchars($e->getMessage()))
+                ->with('type', 'error')
+                ->withInput();
+        }
     }
 
     /**

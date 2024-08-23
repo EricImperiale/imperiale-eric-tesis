@@ -66,9 +66,9 @@ class Property extends Model
         'address',
         'address_number',
         'city',
-        'province',
+        'state',
         'neighborhood',
-        'postal_code',
+        'zip_code',
         'total_area',
         'covered_area',
         'description',
@@ -80,6 +80,8 @@ class Property extends Model
         'rooms',
         'bedrooms',
         'bathrooms',
+        'property_type_fk_id',
+        'owner_fk_id',
     ];
 
     // TODO: Hay manera de no hace tantro codigo.

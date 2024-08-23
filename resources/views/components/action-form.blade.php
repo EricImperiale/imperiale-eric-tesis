@@ -1,4 +1,5 @@
 <div>
+    {{ $errors }}
     <form
         action="{{ route($route, $modelId ? ['id' => $modelId] : []) }}"
         method="post"
@@ -84,6 +85,21 @@
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div>
+                    <label for="country" class="block text-sm font-medium text-gray-700">País</label>
+                    <input
+                        type="text"
+                        id="country"
+                        name="country"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value="{{ old('country') ?? $model?->country }}"
+                    >
+
+                    @error('country')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
             @endif
 
             <div>
@@ -127,21 +143,6 @@
                 >
 
                 @error('city')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div>
-                <label for="country" class="block text-sm font-medium text-gray-700">País</label>
-                <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('country') ?? $model?->country }}"
-                >
-
-                @error('country')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
@@ -269,6 +270,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->total_area }}"
                         >
+
+                        @error('total_area')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -280,6 +285,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->covered_area }}"
                         >
+
+                        @error('covered_area')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="md:col-span-2">
@@ -298,6 +307,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->rental_price }}"
                         >
+
+                        @error('rental_price')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -309,6 +322,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->expenses }}"
                         >
+
+                        @error('expenses')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -320,6 +337,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->floor }}"
                         >
+
+                        @error('floor')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -331,6 +352,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('total_area') ?? $model?->apartment_number }}"
                         >
+
+                        @error('apartment_number')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -350,6 +375,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('rooms') ?? $model?->rooms }}"
                         >
+
+                        @error('rooms')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -361,6 +390,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('bedrooms') ?? $model?->bedrooms }}"
                         >
+
+                        @error('bedrooms')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -372,6 +405,10 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             value="{{ old('bathrooms') ?? $model?->bathrooms }}"
                         >
+
+                        @error('bathrooms')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -384,28 +421,42 @@
                             <option value="">Selecciona un Propietario</option>
 
                             @foreach($owners as $owner)
-                                <option value="{{ $owner->id }}">
+                                <option
+                                    value="{{ $owner->id }}"
+                                    @selected(old('owner_fk_id', $model?->owner_fk_id) == $owner->id)
+                                >
                                     {{ $owner->fullName }} DNI: {{ $owner->dni }}
                                 </option>
                             @endforeach
                         </select>
+
+                        @error('owner_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
-                        <label for="property_fk_id" class="block text-sm font-medium text-gray-700">Tipo de Propiedad</label>
+                        <label for="property_type_fk_id" class="block text-sm font-medium text-gray-700">Tipo de Propiedad</label>
                         <select
-                            id="property_fk_id"
-                            name="property_fk_id"
+                            id="property_type_fk_id"
+                            name="property_type_fk_id"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">Selecciona un Propietario</option>
 
                             @foreach($propertyTypes as $type)
-                                <option value="{{ $type->property_type }}">
+                                <option
+                                    value="{{ $type->property_type_id }}"
+                                    @selected(old('property_type_fk_id', $model?->property_type_fk_id) == $type->property_type_id)
+                                >
                                     {{ $type->name }}
                                 </option>
                             @endforeach
                         </select>
+
+                        @error('property_type_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
             @endif
         </div>
