@@ -64,6 +64,17 @@ class PropertyController extends Controller
         if ($request->hasFile('image')) {
             try {
                 $imagePath = $request->file('image')->store('images', 'public');
+                /*$imageFile = $request->file('image');
+                $imagePath = 'images/' . time() . '_' . $imageFile->getClientOriginalName();
+
+                $image = Image::make($imageFile)
+                    ->resize(800, 600, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+
+                $imageStream = $image->stream();
+                Storage::disk('local')->put($imagePath, $imageStream); */
 
                 $data['image'] = $imagePath;
                 $data['image_alt'] = 'Image de la Propiedad ' . $data['address'] . $data['address_number'];
@@ -93,9 +104,6 @@ class PropertyController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         return view('properties.edit-form', [

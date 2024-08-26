@@ -123,4 +123,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'provides' => [
+        \Intervention\Image\ImageManager::class,
+    ],
+
+    'aliases' => [
+        'Image' => \Intervention\Image\Image::class,
+    ]
 ];

@@ -100,7 +100,7 @@ class Property extends Model
         'image_alt',
     ];
 
-    // TODO: Hay manera de no hace tantro codigo.
+    // TODO: ¿Se puede mejorar?
     protected function fullAddress(): Attribute
     {
         return Attribute::make(
