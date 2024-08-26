@@ -29,10 +29,19 @@ class PropertyController extends Controller
     {
         $builder = $this->repo->withRelations(['owner', 'propertyType']);
 
-        $properties = $builder->paginate(1);
+        $properties = $builder->paginate(3);
 
         return view('properties.index', [
             'properties' => $properties,
+        ]);
+    }
+
+    public function view(string $id)
+    {
+        $property = $this->repo->findOrFail($id, ['owner', 'propertyType']);
+
+        return view('properties.view', [
+            'property' => $property,
         ]);
     }
 
@@ -57,6 +66,7 @@ class PropertyController extends Controller
                 $imagePath = $request->file('image')->store('images', 'public');
 
                 $data['image'] = $imagePath;
+                $data['image_alt'] = 'Image de la Propiedad ' . $data['address'] . $data['address_number'];
             } catch (\Exception $e) {
                 return redirect()
                     ->route('properties.index')
@@ -106,6 +116,7 @@ class PropertyController extends Controller
             $imagePath = $request->file('image')->store('images', 'public');
 
             $data['image'] = $imagePath;
+            $data['image_alt'] = 'Image de la Propiedad ' . $data['address'] . $data['address_number'];
 
             $oldImage = $this->repo->findOrFail($id)->image;
 

@@ -37,6 +37,7 @@
                     <th class="px-4 py-2 text-left">Precio Alquiler</th>
                     <th class="px-4 py-2 text-left">Expensas</th>
                     <th class="px-4 py-2 text-left">Caracteristicas</th>
+                    <th class="px-4 py-2 text-left">Propietario</th>
                     @if(auth()->user()->has_permission)
                         <th class="px-4 py-2 text-left">Acciones</th>
                     @endif

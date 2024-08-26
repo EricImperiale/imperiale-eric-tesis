@@ -15,6 +15,7 @@ class Image extends Component
     public function __construct(
         public Model $model,
         public ?string $image_alt = null,
+        public ?string $class = null,
     )
     {}
 

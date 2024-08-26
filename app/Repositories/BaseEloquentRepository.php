@@ -24,12 +24,12 @@ class BaseEloquentRepository implements BaseRepositoryInterface
 
     public function get()
     {
-        return $this->builder->get();
+        return $this->builder->latest()->get();
     }
 
     public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
     {
-        return $this->builder->paginate($perPage, $columns, $pageName, $page);
+        return $this->builder->latest()->paginate($perPage, $columns, $pageName, $page); // Aplica latest() antes de paginar
     }
 
     public function where($column, $operator = null, $value = null, $boolean = 'and'): self

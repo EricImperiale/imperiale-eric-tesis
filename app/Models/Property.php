@@ -56,6 +56,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereRentalPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereTotalArea($value)
+ * @property int $address_number
+ * @property string $state
+ * @property int $zip_code
+ * @property string|null $image
+ * @property string|null $image_alt
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $caracteristics
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereImageAlt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Property whereZipCode($value)
  * @mixin \Eloquent
  */
 class Property extends Model
@@ -100,11 +114,14 @@ class Property extends Model
         );
     }
 
-    protected function caracteristics(): Attribute
+    protected function characteristics(): Attribute
     {
         return Attribute::make(
             get: function () {
-                return $this->total_area . 'm2' . ' - ' . $this->rooms . ' ambientes';
+               $totalArea = $this->total_area . ' m2';
+               $totalRooms = $this->rooms;
+
+               return $totalArea . ' - ' . $totalRooms . ' ambientes';
             }
         );
     }
@@ -127,16 +144,23 @@ class Property extends Model
         );
     }
 
-    protected function expenses(): Attribute
+    protected function expenses(): ?Attribute
     {
         return Attribute::make(
             get: function ($value) {
                 if ($this->propertyType->property_type_id !== 1) {
-                    return '$' . $value;
+                    return $value ?? 'N/A';
                 }
 
                 return 'N/A';
             }
+        );
+    }
+
+    protected function isForProfessionalUse(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value)  => $value ? 'Sí' : 'No',
         );
     }
 

@@ -7,6 +7,11 @@ switch ($action) {
     case 'delete':
         $routeName = $model . '.confirmDelete';
         break;
+
+    case 'view':
+        $routeName = $model . '.view';
+        break;
+
     default:
         $routeName = '#';
         break;
