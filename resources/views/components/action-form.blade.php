@@ -113,7 +113,10 @@
                             <option value="">Selecciona una Propiedad</option>
 
                             @foreach($properties as $property)
-                                <option value="{{ $property->id }}">
+                                <option
+                                    value="{{ $property->id }}"
+                                    @selected(old('property_fk_id', $model?->property_fk_id) == $property->id)
+                                >
                                     {{ $property->fullAddress }}
                                 </option>
                             @endforeach
@@ -134,7 +137,10 @@
                             <option value="">Selecciona un Propietario</option>
 
                             @foreach($owners as $owner)
-                                <option value="{{ $owner->id }}">
+                                <option
+                                    value="{{ $owner->id }}"
+                                    @selected(old('owner_fk_id', $model?->owner_fk_id) == $owner->id)
+                                >
                                     {{ $owner->fullName }} - DNI: {{ $owner->dni }}
                                 </option>
                             @endforeach
@@ -155,7 +161,10 @@
                             <option value="">Selecciona un Inquilino</option>
 
                             @foreach($tenants as $tenant)
-                                <option value="{{ $tenant->id }}">
+                                <option
+                                    value="{{ $tenant->id }}"
+                                    @selected(old('tenant_fk_id', $model?->tenant_fk_id) == $tenant->id)
+                                >
                                     {{ $tenant->fullName }} - DNI: {{ $tenant->dni }}
                                 </option>
                             @endforeach
@@ -176,7 +185,10 @@
                             <option value="">Selecciona un Garante</option>
 
                             @foreach($guarantors as $guarantor)
-                                <option value="{{ $guarantor->id }}">
+                                <option
+                                    value="{{ $guarantor->id }}"
+                                    @selected(old('guarantor_fk_id', $model?->guarantor_fk_id) == $guarantor->id)
+                                >
                                     {{ $guarantor->fullName }} - DNI: {{ $guarantor->dni }}
                                 </option>
                             @endforeach
@@ -197,7 +209,10 @@
                             <option value="">Selecciona un Tipo de Moneda</option>
 
                             @foreach($currencyTypes as $type)
-                                <option value="{{ $type->currency_type_id }}">
+                                <option
+                                    value="{{ $type->currency_type_id }}"
+                                    @selected(old('currency_type_fk_id', $model?->currency_type_fk_id) == $type->currency_type_id)
+                                >
                                     {{ $type->name }}
                                 </option>
                             @endforeach
@@ -239,7 +254,7 @@
                        <label for="description" class="block text-sm font-medium text-gray-700">Comentarios</label>
                        <textarea id="description"
                                  name="description"
-                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('description') ?? $model?->description }}</textarea>
 
                         @error('description')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
