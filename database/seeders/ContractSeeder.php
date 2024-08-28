@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ContractSeeder extends Seeder
 {
@@ -16,8 +17,9 @@ class ContractSeeder extends Seeder
         DB::table('contracts')->insert([
             [
                 'rental_price' => 50000,
-                'expenses' => 5000,
                 'description' => 'Alquiler de un departamento céntrico en Buenos Aires.',
+                'start_date' => Carbon::parse(now())->format('d-m-Y'),
+                'end_date' => Carbon::parse(now())->addMonths(13)->addDays(15)->format('d-m-Y'),
                 'security_deposit' => 100000,
                 'owner_fk_id' => 1,
                 'tenant_fk_id' => 2,

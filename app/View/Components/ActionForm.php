@@ -14,9 +14,13 @@ class ActionForm extends Component
      */
     public function __construct(
         public $model = null,
+        public ?Collection $properties = null,
         public ?Collection $phonePrefixes = null,
-        public ?Collection $owners = null,
         public ?Collection $propertyTypes = null,
+        public ?Collection $currencyTypes = null,
+        public ?Collection $owners = null,
+        public ?Collection $tenants = null,
+        public ?Collection $guarantors = null,
         public ?string $modelId = null,
         public string $formType,
         public string $action,

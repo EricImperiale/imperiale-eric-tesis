@@ -70,6 +70,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereZipCode($value)
+ * @property-read mixed $characteristics
  * @mixin \Eloquent
  */
 class Property extends Model
@@ -113,7 +114,6 @@ class Property extends Model
             }
         );
     }
-
     protected function characteristics(): Attribute
     {
         return Attribute::make(

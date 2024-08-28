@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('rental_price');
-            $table->unsignedInteger('expenses')->nullable();
-            $table->text('description')->nullable();
             $table->unsignedInteger('security_deposit');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

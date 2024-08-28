@@ -7,7 +7,7 @@ use App\Http\Middleware\VerifyAuth;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\PropertyController;
-
+use App\Http\Controllers\ContractController;
 
 Route::get('/iniciar-sesion', [LoginFormController::class, 'index'])
     ->name('auth.loginForm');
@@ -109,5 +109,20 @@ Route::post('/propiedades/{id}/confirmar-eliminacion', [PropertyController::clas
     ->middleware(VerifyAuth::class);
 Route::get('/propiedades/{id}/ver', [PropertyController::class, 'view'])
     ->name('properties.view')
+    ->middleware(VerifyAuth::class);
+
+Route::get('/contratos', [ContractController::class, 'index'])
+    ->name('contracts.index')
+    ->middleware(VerifyAuth::class);
+Route::get('/contratos/crear', [ContractController::class, 'create'])
+    ->name('contracts.createForm')
+    ->middleware(VerifyAuth::class);
+Route::post('/contratos/crear', [ContractController::class, 'processCreate'])
+    ->name('contracts.processCreate')
+    ->middleware(VerifyAuth::class);
+Route::get('/contratos/{id}/editar', [ContractController::class, 'edit'])
+    ->name('contracts.editForm');
+Route::get('/contratos/{id}/confirmar-eliminacion', [ContractController::class, 'delete'])
+    ->name('contracts.confirmDelete')
     ->middleware(VerifyAuth::class);
 

@@ -36,12 +36,18 @@
                         </button>
                         <ul class="hidden pl-4 mt-2 space-y-1" id="contratosDropdown">
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Crear
-                                    Contrato</a>
+                                <a
+                                    href="{{ route('contracts.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">
+                                    Crear Contratos
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">Ver
-                                    Contratos</a>
+                                <a
+                                    href="{{ route('contracts.index') }}"
+                                    class="block p-2 text-sm text-gray-600 transition duration-300 ease-in-out rounded-md hover:bg-gray-200">
+                                    Ver Contratos
+                                </a>
                             </li>
                         </ul>
                     </li>

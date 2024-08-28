@@ -8,7 +8,7 @@
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            @if($formType !== 'properties')
+            @if($formType == 'actors')
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
                     <input
@@ -102,97 +102,274 @@
                 </div>
             @endif
 
-            <div>
-                <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
-                <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('address') ?? $model?->address }}"
-                >
+            @if($formType == 'contracts')
+                    <div>
+                        <label for="property_fk_id" class="block text-sm font-medium text-gray-700">Propiedad</label>
+                        <select
+                            id="property_fk_id"
+                            name="property_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona una Propiedad</option>
 
-                @error('address')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                            @foreach($properties as $property)
+                                <option value="{{ $property->id }}">
+                                    {{ $property->fullAddress }}
+                                </option>
+                            @endforeach
+                        </select>
 
-            <div>
-                <label for="address_number" class="block text-sm font-medium text-gray-700">Altura</label>
-                <input
-                    type="number"
-                    id="address_number"
-                    name="address_number"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('address_number') ?? $model?->address_number }}"
-                >
+                        @error('property_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                @error('address_number')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                   <div>
+                        <label for="owner_fk_id" class="block text-sm font-medium text-gray-700">Propietario</label>
+                        <select
+                            id="owner_fk_id"
+                            name="owner_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona un Propietario</option>
 
-            <div>
-                <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-                <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('city') ?? $model?->city }}"
-                >
+                            @foreach($owners as $owner)
+                                <option value="{{ $owner->id }}">
+                                    {{ $owner->fullName }} - DNI: {{ $owner->dni }}
+                                </option>
+                            @endforeach
+                        </select>
 
-                @error('city')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                        @error('owner_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
 
-            <div>
-                <label for="state" class="block text-sm font-medium text-gray-700">Provincia</label>
-                <input
-                    type="text"
-                    id="state"
-                    name="state"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('state') ?? $model?->state }}"
-                >
+                   <div>
+                        <label for="tenant_fk_id" class="block text-sm font-medium text-gray-700">Inquilino</label>
+                        <select
+                            id="tenant_fk_id"
+                            name="tenant_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona un Inquilino</option>
 
-                @error('state')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                            @foreach($tenants as $tenant)
+                                <option value="{{ $tenant->id }}">
+                                    {{ $tenant->fullName }} - DNI: {{ $tenant->dni }}
+                                </option>
+                            @endforeach
+                        </select>
 
-            <div>
-                <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
-                <input
-                    type="text"
-                    id="neighborhood"
-                    name="neighborhood"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('neighborhood') ?? $model?->neighborhood }}"
-                >
+                        @error('tenant_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
 
-                @error('neighborhood')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                   <div>
+                        <label for="guarantor_fk_id" class="block text-sm font-medium text-gray-700">Garantes</label>
+                        <select
+                            id="guarantor_fk_id"
+                            name="guarantor_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona un Garante</option>
 
-            <div>
-                <label for="zip_code" class="block text-sm font-medium text-gray-700">Código Postal</label>
-                <input
-                    type="text"
-                    id="zip_code"
-                    name="zip_code"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value="{{ old('zip_code') ?? $model?->zip_code }}"
-                >
+                            @foreach($guarantors as $guarantor)
+                                <option value="{{ $guarantor->id }}">
+                                    {{ $guarantor->fullName }} - DNI: {{ $guarantor->dni }}
+                                </option>
+                            @endforeach
+                        </select>
 
-                @error('zip_code')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                        @error('guarantor_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
 
-            @if($formType !== 'properties')
+                    <div>
+                        <label for="currency_type_fk_id" class="block text-sm font-medium text-gray-700">Tipo de Moneda</label>
+                        <select
+                            id="currency_type_fk_id"
+                            name="currency_type_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona un Tipo de Moneda</option>
+
+                            @foreach($currencyTypes as $type)
+                                <option value="{{ $type->currency_type_id }}">
+                                    {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('currency_type_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
+                   <div>
+                        <label for="security_deposit" class="block text-sm font-medium text-gray-700">Depósito</label>
+                        <input
+                           type="text"
+                           id="security_deposit"
+                           name="security_deposit"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           value="{{ old('security_deposit') ?? $model?->security_deposit }}"
+                        >
+
+                        @error('security_deposit')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
+                   <div>
+                        <label for="rental_price" class="block text-sm font-medium text-gray-700">Precio del Alquiler</label>
+                        <input
+                           type="text"
+                           id="rental_price"
+                           name="rental_price"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           value="{{ old('rental_price') ?? $model?->rental_price }}"
+                        >
+
+                        @error('rental_price')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
+                   <div>
+                       <label for="description" class="block text-sm font-medium text-gray-700">Comentarios</label>
+                       <textarea id="description"
+                                 name="description"
+                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+
+                        @error('description')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                   </div>
+
+                    <div>
+                        <label for="start_date" class="block text-sm font-medium text-gray-700">Fecha de Comienzo</label>
+                        <input
+                            type="date"
+                            id="start_date"
+                            name="start_date"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('start_date') ?? $model?->start_date }}"
+                        >
+
+                        @error('start_date')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="end_date" class="block text-sm font-medium text-gray-700">Fecha de Finalización</label>
+                        <input
+                            type="date"
+                            id="end_date"
+                            name="end_date"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('end_date') ?? $model?->end_date }}"
+                        >
+
+                        @error('end_date')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+            @endif
+
+            @if($formType == 'properties' || $formType == 'actors')
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('address') ?? $model?->address }}"
+                        >
+
+                        @error('address')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="address_number" class="block text-sm font-medium text-gray-700">Altura</label>
+                        <input
+                            type="number"
+                            id="address_number"
+                            name="address_number"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('address_number') ?? $model?->address_number }}"
+                        >
+
+                        @error('address_number')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('city') ?? $model?->city }}"
+                        >
+
+                        @error('city')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="state" class="block text-sm font-medium text-gray-700">Provincia</label>
+                        <input
+                            type="text"
+                            id="state"
+                            name="state"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('state') ?? $model?->state }}"
+                        >
+
+                        @error('state')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
+                        <input
+                            type="text"
+                            id="neighborhood"
+                            name="neighborhood"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('neighborhood') ?? $model?->neighborhood }}"
+                        >
+
+                        @error('neighborhood')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="zip_code" class="block text-sm font-medium text-gray-700">Código Postal</label>
+                        <input
+                            type="text"
+                            id="zip_code"
+                            name="zip_code"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('zip_code') ?? $model?->zip_code }}"
+                        >
+
+                        @error('zip_code')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+            @endif
+
+            @if($formType == 'actors')
                     <div>
                         <label for="phone_prefix_fk_id" class="block text-sm font-medium text-gray-700">Código de Área</label>
 
