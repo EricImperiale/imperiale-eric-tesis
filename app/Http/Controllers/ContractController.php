@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Contract\CreateRequest;
 use App\Models\Contract;
 use App\Models\CurrencyType;
 use App\Models\Guarantor;
@@ -41,7 +42,7 @@ class ContractController extends Controller
         ]);
     }
 
-    public function processCreate()
+    public function processCreate(CreateRequest $request)
     {
 
     }
