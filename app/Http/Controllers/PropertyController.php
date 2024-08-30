@@ -188,7 +188,6 @@ class PropertyController extends Controller
        }
 
        // TODO: Validar si tiene contrato activo.
-
        if ($property->image !== null) {
            Storage::delete($property->image);
        }

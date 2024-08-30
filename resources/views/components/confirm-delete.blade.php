@@ -112,7 +112,12 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">Selecciona el Propietario del contrato</option>
-                            <option value="">{{ $owner->fullName }} - DNI: {{ $owner->dni }}</option>
+                            <option
+                                value="{{ $owner->id }}"
+                                @selected(old('owner_fk_id') == $owner->id)
+                            >
+                                {{ $owner->fullName }} - DNI: {{ $owner->dni }}
+                            </option>
                         </select>
 
                         @error('owner_fk_id')
@@ -128,7 +133,12 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">Selecciona el Inquilino del contrato</option>
-                            <option value="">{{ $tenant->fullName }} - DNI: {{ $tenant->dni }}</option>
+                            <option
+                                value="{{ $tenant->id }}"
+                                @selected(old('tenant_fk_id') == $tenant->id)
+                            >
+                                {{ $tenant->fullName }} - DNI: {{ $tenant->dni }}
+                            </option>
                         </select>
 
                         @error('tenant_fk_id')
@@ -144,7 +154,12 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">Selecciona la propiedad del contrato</option>
-                            <option value="">{{ $property->fullAddress }}</option>
+                            <option
+                                value="{{ $property->id }}"
+                                @selected(old('property_fk_id') == $property->id)
+                            >
+                                {{ $property->fullAddress }}
+                            </option>
                         </select>
 
                         @error('property_fk_id')

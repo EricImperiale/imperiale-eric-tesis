@@ -23,7 +23,18 @@ class ConfirmDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'property_fk_id' => 'required|exists:properties,id',
+            'owner_fk_id' => 'required|exists:owners,id',
+            'tenant_fk_id' => 'required|exists:tenants,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'property_fk_id.required' => 'Tenés que seleccionar la Propiedad del contrato.',
+            'owner_fk_id.required' => 'Tenés que seleccionar el Propietario del contrato.',
+            'tenant_fk_id.required' => 'Tenés que seleccionar el Inquilino del contrato.',
         ];
     }
 }

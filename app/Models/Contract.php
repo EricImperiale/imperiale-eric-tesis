@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
  *
@@ -46,6 +47,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Contract extends Model
 {
     use HasFactory;
+    use AuthorizesRequests;
+
     protected $fillable = [
         'rental_price',
         'security_deposit',
