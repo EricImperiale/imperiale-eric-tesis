@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  *
@@ -177,6 +178,15 @@ class Property extends Model
         return $this->belongsTo(
             PropertyType::class,
             'property_type_fk_id',
+        );
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(
+            Contract::class,
+            'property_fk_id',
+            'id'
         );
     }
 }

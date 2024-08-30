@@ -188,6 +188,15 @@ class PropertyController extends Controller
        }
 
        // TODO: Validar si tiene contrato activo.
+
+       if ($property->contracts()->exists()) {
+           return redirect()
+               ->route('properties.index')
+               ->withInput()
+               ->with('message', 'La propiedad no puede eliminarse porque tiene un contrato activo.')
+               ->with('type', 'danger');
+       }
+
        if ($property->image !== null) {
            Storage::delete($property->image);
        }
