@@ -19,6 +19,11 @@
             $title = 'de la Propiedad';
             $dataToBeEntered = 'la Dirección completa';
             break;
+
+        case 'contracts':
+            $title = 'Contrato';
+            $dataToBeEntered = 'la Dirección completa';
+            break;
     }
 ?>
 <div class="container mx-auto">
@@ -32,18 +37,32 @@
     <div class="bg-white p-6 border border-gray-300 rounded-lg shadow-md">
         <h3 class="text-lg font-medium text-gray-700 mb-4">Detalles del {{ $title }}</h3>
         <ul class="mb-4 text-gray-600">
-            @if($modelToBeDeleted !== 'properties')
+            @if($modelToBeDeleted !== 'properties' && $modelToBeDeleted !== 'contracts')
                 <li><strong>Nombre Completo:</strong> {{ $model->fullName }}</li>
                 <li><strong>DNI:</strong> {{ $model->dni }}</li>
                 <li><strong>Email:</strong> {{ $model->email }}</li>
             @else
-                <li><strong>Dirección completa:</strong> {{ $model->address }} {{ $model->address_number }}</li>
+                <li><strong>Dirección completa:</strong> {{ $model->address ?? $model->property->fullAddress }} {{ $model->address_number }} </li>
                 <li><strong>Dueño/a:</strong> {{ $model->owner->fullName }} con DNI: {{ $model->owner->dni }}</li>
+
+                @if($modelToBeDeleted === 'contracts')
+                    <li class="mt-3"><strong>Entre las partes: </strong></li>
+                    <li><strong>Dueño:</strong> {{ $model->owner->fullName }} con DNI: {{ $model->owner->dni }}</li>
+                    <li><strong>Inquilino:</strong> {{ $model->tenant->fullName }} con DNI: {{ $model->tenant->dni }}</li>
+                    <li><strong>Garante:</strong> {{ $model->guarantor->fullName }} con DNI: {{ $model->guarantor->dni }}</li>
+                @endif
             @endif
         </ul>
 
-        @if($model->property_type_fk_id !== 1)
-            <p class="mt-0 text-gray-600">Está propiedad es un <b>{{ $model->propertyType->name }} en el piso {{ $model->floor }} {{ $model->apartment_number }}</b>.</p>
+        @if($model == 'properties' && $model->property_type_fk_id !== 1)
+            <p class="mt-0 text-gray-600">
+                Está propiedad es un
+                <b>
+                    {{ $model->propertyType->name ?? $model->property->propertyType->name }}
+                    en el piso {{ $model->floor ?? $model->property-> floor }}
+                    {{ $model->apartment_number ?? $model->property-> apartment_number }}
+                </b>.
+            </p>
         @endif
         <form
             action="{{ route($route, ['id' => $model->id]) }}"
@@ -52,7 +71,7 @@
         >
             @csrf
 
-            @if($modelToBeDeleted !== 'properties')
+            @if($modelToBeDeleted !== 'properties' && $modelToBeDeleted !== 'contracts')
                 <div class="flex flex-col">
                     <label for="dni" class="text-sm font-medium text-gray-700">Confirma el DNI del {{ $title }}:</label>
                     <input
@@ -69,20 +88,70 @@
                     @enderror
                 </div>
             @else
-                <div class="flex flex-col">
-                    <label for="full_address" class="text-sm font-medium text-gray-700">Confirma la dirección {{ $title }}:</label>
-                    <input
-                        type="text"
-                        id="full_address"
-                        name="full_address"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value="{{ old('full_address') }}"
-                    >
+                @if($modelToBeDeleted == 'properties')
+                    <div class="flex flex-col">
+                        <label for="full_address" class="text-sm font-medium text-gray-700">Confirma la dirección {{ $title }}:</label>
+                        <input
+                            type="text"
+                            id="full_address"
+                            name="full_address"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            value="{{ old('full_address') }}"
+                        >
 
-                    @error('full_address')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+                        @error('full_address')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @else
+                    <div class="flex flex-col">
+                        <label for="owner_fk_id" class="text-sm font-medium text-gray-700">Selecciona el Propietario del contrato:</label>
+                        <select
+                            id="owner_fk_id"
+                            name="owner_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona el Propietario del contrato</option>
+                            <option value="">{{ $owner->fullName }} - DNI: {{ $owner->dni }}</option>
+                        </select>
+
+                        @error('owner_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="tenant_fk_id" class="text-sm font-medium text-gray-700">Selecciona el Inquilino del contrato:</label>
+                        <select
+                            id="tenant_fk_id"
+                            name="tenant_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona el Inquilino del contrato</option>
+                            <option value="">{{ $tenant->fullName }} - DNI: {{ $tenant->dni }}</option>
+                        </select>
+
+                        @error('tenant_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="property_fk_id" class="text-sm font-medium text-gray-700">Selecciona la propiedad del contrato:</label>
+                        <select
+                            id="property_fk_id"
+                            name="property_fk_id"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            <option value="">Selecciona la propiedad del contrato</option>
+                            <option value="">{{ $property->fullAddress }}</option>
+                        </select>
+
+                        @error('property_fk_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endif
             @endif
 
             <div class="flex justify-end space-x-2">

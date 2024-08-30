@@ -23,7 +23,7 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property_fk_id' => 'required|exists:properties,id',
+            'property_fk_id' => 'required|exists:properties,id|unique:contracts,property_fk_id',
             'owner_fk_id' => [
                 'required',
                 'exists:owners,id',
@@ -56,6 +56,7 @@ class CreateRequest extends FormRequest
         return [
             'property_fk_id.required' => 'La propiedad es obligatoria.',
             'property_fk_id.exists' => 'La propiedad seleccionada no es válida.',
+            'property_fk_id.unique' => 'Está propiedad ya tiene un contrato activo.',
 
             'owner_fk_id.required' => 'El propietario es obligatorio.',
             'owner_fk_id.exists' => 'El propietario seleccionado no es válido.',

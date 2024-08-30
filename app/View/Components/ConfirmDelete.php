@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
@@ -17,6 +18,9 @@ class ConfirmDelete extends Component
         public string $modelId,
         public string $modelToBeDeleted,
         public string $route,
+        public ?Model $owner = null,
+        public ?Model $tenant = null,
+        public ?Model $property = null,
     )
     {}
 

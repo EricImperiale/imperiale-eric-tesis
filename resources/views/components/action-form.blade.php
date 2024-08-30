@@ -117,7 +117,7 @@
                                     value="{{ $property->id }}"
                                     @selected(old('property_fk_id', $model?->property_fk_id) == $property->id)
                                 >
-                                    {{ $property->fullAddress }}
+                                    {{ $property->fullAddress }} {{ $property->floor }} {{ $property->apartment_number }}
                                 </option>
                             @endforeach
                         </select>

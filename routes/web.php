@@ -125,4 +125,7 @@ Route::get('/contratos/{id}/editar', [ContractController::class, 'edit'])
 Route::get('/contratos/{id}/confirmar-eliminacion', [ContractController::class, 'delete'])
     ->name('contracts.confirmDelete')
     ->middleware(VerifyAuth::class);
+Route::post('/contratos/{id}/confirmar-eliminacion', [ContractController::class, 'processDelete'])
+    ->name('contracts.processDelete')
+    ->middleware(VerifyAuth::class);
 
